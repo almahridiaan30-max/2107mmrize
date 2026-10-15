@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>2107🌸</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES
+============================================================ */
+:root{
+  --p1:#ff6eb4; --p2:#ff9ecb; --p3:#ffb8d9; --p4:#ffd6ea; --p5:#fff0f7;
+  --deep:#d63384; --accent:#ff4da6;
+  --td:#3d1a2e; --tm:#7c3a5e; --ts:#c07098;
+  --bd:#f5c0d8; --err:#e53e3e;
+  --cb:rgba(255,255,255,0.82);   /* card bg */
+  --pb:linear-gradient(150deg,#fff0f7 0%,#ffd6ea 50%,#ffb8d9 100%); /* page bg */
+  --gm:linear-gradient(135deg,#ff6eb4,#d63384);
+  --ga:linear-gradient(135deg,#ff4da6,#ff9ecb 50%,#d63384);
+  --ss:0 4px 16px rgba(214,51,132,.14);
+  --sm:0 12px 36px rgba(214,51,132,.24);
+  --sl:0 20px 60px rgba(214,51,132,.34);
+  --rs:12px; --rm:18px; --rl:24px; --rx:32px;
+  --tr:.28s ease;
+  --font:'Nunito','Segoe UI',system-ui,sans-serif;
+}
+[data-theme=dark]{
+  --p5:#140810; --p4:#250e1b; --p3:#3c1429;
+  --cb:rgba(35,8,22,0.88);
+  --pb:linear-gradient(150deg,#140810 0%,#250e1b 50%,#2e0f1f 100%);
+  --td:#ffd6ea; --tm:#ff9ecb; --ts:#c07098; --bd:#5c1840;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--pb);
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--td);
+  /* NO cursor:none — no custom cursor overhead */
+  transition:background .4s;
+}
+
+/* ============================================================
+   CANVAS — fixed background, pointer-events off
+============================================================ */
+#bgc{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:0;
+  /* will-change handled in JS */
+}
+
+/* ============================================================
+   JELLYFISH — pure CSS, no JS per-frame
+============================================================ */
+.jf{
+  position:fixed;display:flex;flex-direction:column;align-items:center;
+  opacity:.32;z-index:1;pointer-events:none;
+  animation:jfFloat var(--d,6s) ease-in-out infinite var(--dl,0s);
+  contain:strict; /* layout isolation */
+}
+.jfb{
+  width:54px;height:38px;border-radius:50% 50% 0 0;
+  background:radial-gradient(ellipse at 50% 65%,rgba(255,110,180,.7) 0%,rgba(255,158,203,.35) 45%,transparent 70%);
+}
+.jft{display:flex;gap:4px;margin-top:2px}
+.jfl{
+  width:3px;height:36px;border-radius:2px;
+  background:linear-gradient(to bottom,rgba(255,110,180,.85),transparent);
+  animation:jfTent var(--tw,3s) ease-in-out infinite calc(var(--ti,0)*.18s);
+  transform-origin:top center;
+}
+
+/* ============================================================
+   BUTTERFLY — pure CSS
+============================================================ */
+.bf{
+  position:fixed;opacity:0;z-index:1;pointer-events:none;
+  animation:bfFly var(--bd,8s) ease-in-out infinite var(--bdl,0s);
+  contain:strict;
+}
+.bfw{display:flex;align-items:center}
+.bfw div{
+  width:19px;height:13px;border-radius:50%;opacity:.82;
+  background:linear-gradient(135deg,#ff4da6,#ffb8d9);
+  animation:bfWing .55s ease-in-out infinite alternate;
+}
+.bfw div:last-child{animation-direction:alternate-reverse}
+.bfw div:first-child{transform-origin:right center}
+.bfw div:last-child{transform-origin:left center}
+
+/* ============================================================
+   KEYFRAMES — only transform/opacity (GPU layers only)
+============================================================ */
+@keyframes jfFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-26px) rotate(3deg)}}
+@keyframes jfTent{0%,100%{transform:scaleY(1) rotate(0)}50%{transform:scaleY(1.08) rotate(5deg)}}
+@keyframes bfWing{from{transform:rotateZ(0) scaleX(1)}to{transform:rotateZ(10deg) scaleX(.78)}}
+@keyframes bfFly{0%{transform:translate(0,0);opacity:0}15%{opacity:.8}50%{transform:translate(70px,-70px)}85%{opacity:.8}100%{transform:translate(140px,-140px);opacity:0}}
+
+@keyframes slideUp{from{transform:translateY(38px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes slideDown{from{transform:translateY(-36px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes hbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes glow{0%,100%{box-shadow:0 0 10px rgba(255,77,166,.25)}50%{box-shadow:0 0 24px rgba(255,77,166,.55)}}
+@keyframes badge{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes inRight{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes outRight{from{transform:translateX(0);opacity:1}to{transform:translateX(110%);opacity:0}}
+@keyframes modalIn{from{transform:translateY(55px) scale(.96);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes gradFlow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes cdPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes progFill{from{width:0}to{width:var(--w,0%)}}
+@keyframes petalFall{
+  0%{transform:translateY(-40px) rotate(0deg);opacity:0}
+  10%{opacity:.7}90%{opacity:.5}
+  100%{transform:translateY(105vh) rotate(600deg);opacity:0}
+}
+
+/* ============================================================
+   PAGE SECTIONS
+============================================================ */
+#pg-login,#pg-main{position:relative;z-index:2}
+#pg-main{display:none}
+
+/* ============================================================
+   FLOATING PETALS — CSS-only, no JS per-frame
+============================================================ */
+.petal{
+  position:fixed;pointer-events:none;z-index:1;
+  font-size:var(--sz,18px);opacity:0;user-select:none;
+  animation:petalFall var(--dr,9s) linear infinite var(--dl2,0s);
+}
+
+/* ============================================================
+   LOGIN
+============================================================ */
+#pg-login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lbox{
+  background:var(--cb);
+  backdrop-filter:blur(18px);
+  border:1.5px solid rgba(255,180,210,.55);
+  border-radius:var(--rx);
+  padding:42px 38px;
+  max-width:450px;width:100%;
+  box-shadow:var(--sl),0 0 40px rgba(255,77,166,.1);
+  animation:slideUp .6s cubic-bezier(.34,1.56,.64,1) both;
+  position:relative;overflow:hidden;
+}
+.lbox::before{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);
+  background-size:200% auto;animation:shimmer 4.5s linear infinite;
+}
+.lstar{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
+.lstar span{
+  position:absolute;color:var(--p2);font-size:var(--ss,13px);
+  animation:twinkle var(--sd,2s) ease-in-out infinite var(--sdl,0s);
+}
+.llogo{font-size:48px;display:block;text-align:center;margin-bottom:10px;
+        animation:bob 2.5s ease-in-out infinite;
+        filter:drop-shadow(0 4px 8px rgba(255,77,166,.38))}
+.ltitle{
+  font-size:27px;font-weight:900;text-align:center;margin-bottom:5px;
+  background:var(--ga);background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradFlow 4s ease infinite;
+}
+.lsub{color:var(--ts);font-size:13px;font-weight:600;text-align:center;margin-bottom:28px}
+.fg{margin-bottom:18px}
+.fl{display:block;color:var(--tm);font-weight:700;font-size:12px;margin-bottom:7px;
+     text-transform:uppercase;letter-spacing:.5px}
+.iw{position:relative}
+.fi{
+  width:100%;background:rgba(255,240,247,.8);border:2px solid var(--bd);
+  border-radius:var(--rs);padding:12px 48px 12px 16px;font-size:16px;
+  font-family:var(--font);color:var(--td);outline:none;
+  transition:border-color var(--tr),box-shadow var(--tr),background var(--tr);
+}
+.fi:focus{border-color:var(--accent);background:rgba(255,255,255,.96);
+           box-shadow:0 0 0 4px rgba(255,77,166,.13)}
+.fi::placeholder{color:var(--ts);opacity:.7}
+.tpw{
+  position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;font-size:19px;color:var(--p3);
+  transition:color var(--tr),transform var(--tr);line-height:1;padding:4px;
+}
+.tpw:hover{color:var(--deep);transform:translateY(-50%) scale(1.14)}
+.emsg{color:var(--err);font-size:12px;font-weight:600;margin-top:7px;min-height:17px;display:none}
+.emsg.on{display:block;animation:shake .42s ease}
+.btnl{
+  width:100%;padding:14px;background:var(--gm);background-size:200%;
+  color:#fff;border:none;border-radius:var(--rs);font-size:16px;
+  font-family:var(--font);font-weight:800;cursor:pointer;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;
+  transition:transform var(--tr),box-shadow var(--tr);
+}
+.btnl::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.22) 50%,transparent 60%);
+  background-size:200% auto;animation:shimmer 3.2s linear infinite;pointer-events:none;
+}
+.btnl:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 28px rgba(214,51,132,.42)}
+.btnl:active:not(:disabled){transform:translateY(0)}
+.btnl:disabled{opacity:.7;cursor:not-allowed}
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+       border-radius:50%;animation:spin .8s linear infinite;display:none}
+
+/* ============================================================
+   TOOLBAR (fixed, bottom-right)
+============================================================ */
+#toolbar{
+  position:fixed;bottom:22px;right:22px;z-index:600;
+  display:none;flex-direction:column;gap:9px;align-items:flex-end;
+}
+/* ---- Toolbar button ---- */
+.tbb{
+  width:46px;height:46px;border-radius:50%;
+  border:2px solid var(--bd);
+  background:var(--cb);
+  /* backdrop-filter dihapus — terlalu mahal untuk 4+ elemen */
+  font-size:19px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--ss);
+  transition:transform var(--tr),box-shadow var(--tr);
+  /* glow animation dihapus dari toolbar — hemat GPU */
+  position:relative;
+}
+.tbb:hover{transform:scale(1.1);box-shadow:var(--sm)}
+/* tooltip */
+.tbb::before{
+  content:attr(data-tip);
+  position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);
+  background:var(--td);color:#fff;font-size:11px;font-weight:700;font-family:var(--font);
+  padding:5px 10px;border-radius:8px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .18s;
+}
+.tbb:hover::before{opacity:1}
+
+/* ============================================================
+   TOAST
+============================================================ */
+.toast{
+  position:fixed;top:22px;right:22px;
+  background:var(--cb);backdrop-filter:blur(14px);
+  border-radius:var(--rm);padding:13px 19px;box-shadow:var(--sm);
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:700;font-family:var(--font);
+  z-index:99999;max-width:290px;
+  border-left:4px solid var(--accent);color:var(--td);
+  animation:inRight .32s cubic-bezier(.34,1.56,.64,1) both;
+}
+.toast.out{animation:outRight .28s ease both}
+.toast-ico{font-size:19px}
+
+/* ============================================================
+   HEADER
+============================================================ */
+#pg-main{min-height:100vh;animation:fadeIn .4s ease}
+.mhdr{
+  background:var(--gm);background-size:200%;
+  animation:gradFlow 8s ease infinite,slideDown .65s ease both;
+  color:#fff;padding:42px 20px 50px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.mhdr::after{/* wave bottom */
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:38px;
+  background:var(--pb);clip-path:ellipse(54% 100% at 50% 100%);
+}
+.hsp{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hsp i{
+  position:absolute;
+  width:var(--hs,6px);height:var(--hs,6px);
+  background:rgba(255,255,255,.68);border-radius:50%;
+  animation:twinkle var(--hd,2s) ease-in-out infinite var(--hdl,0s);
+}
+.btnout{
+  position:absolute;top:18px;right:18px;
+  background:rgba(255,255,255,.18);backdrop-filter:blur(8px);
+  border:2px solid rgba(255,255,255,.65);color:#fff;
+  padding:7px 18px;border-radius:28px;font-size:12px;
+  font-family:var(--font);font-weight:700;cursor:pointer;
+  transition:background var(--tr),color var(--tr),transform var(--tr);z-index:10;
+}
+.btnout:hover{background:#fff;color:var(--deep);transform:translateY(-2px)}
+.htitle{font-size:30px;font-weight:900;margin-bottom:6px;line-height:1.2}
+.hname{font-size:20px;font-weight:800;opacity:.95;margin-bottom:14px}
+.hmsg{font-size:14px;opacity:.9;max-width:500px;margin:0 auto 9px;line-height:1.7;font-weight:600}
+.hbeat{display:inline-block;animation:hbeat 1.4s ease-in-out infinite;filter:drop-shadow(0 0 5px rgba(255,255,255,.8))}
+.hsub{font-size:12px;opacity:.78;max-width:460px;margin:0 auto;line-height:1.8;font-weight:600}
+
+/* ============================================================
+   COUNTDOWN BAND
+============================================================ */
+.cdown{
+  background:rgba(255,255,255,.14);backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.2);
+  padding:11px 20px;display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.cdown-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.5px}
+.cdown-units{display:flex;justify-content:center;gap:20px}
+.cdu{text-align:center;animation:cdPulse 1s ease-in-out infinite}
+.cdu:nth-child(2){animation-delay:.25s}.cdu:nth-child(3){animation-delay:.5s}.cdu:nth-child(4){animation-delay:.75s}
+.cdn{font-size:26px;font-weight:900;color:#fff;line-height:1}
+.cdl{font-size:9px;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.4px}
+
+/* ============================================================
+   STATS BAR
+============================================================ */
+/* Stats bar — hapus backdrop-filter, pakai solid bg */
+.sbar{
+  background:var(--cb);
+  border-bottom:1px solid rgba(255,180,210,.3);
+  display:flex;justify-content:center;gap:36px;padding:14px 20px;
+  position:relative;z-index:3;
+}
+.si{text-align:center;animation:slideUp .5s ease both}
+.si:nth-child(1){animation-delay:.1s}.si:nth-child(2){animation-delay:.2s}.si:nth-child(3){animation-delay:.3s}
+.snum{font-size:24px;font-weight:900;background:var(--gm);
+       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.slbl{font-size:10px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+
+/* ============================================================
+   CONTENT
+============================================================ */
+.csec{max-width:1200px;margin:0 auto;padding:30px 20px 60px}
+.stitle{font-size:24px;font-weight:900;text-align:center;color:var(--deep);margin-bottom:10px}
+.stitle::after{content:'';display:block;width:60px;height:4px;background:var(--gm);border-radius:2px;margin:9px auto 0}
+
+/* ============================================================
+   SEARCH + FILTER BAR
+============================================================ */
+.topbar{display:flex;gap:10px;margin:20px 0 24px;flex-wrap:wrap;align-items:center}
+/* Search bar — hapus backdrop-filter */
+.srch{
+  flex:1;min-width:160px;
+  background:var(--cb);
+  border:2px solid var(--bd);border-radius:28px;
+  padding:10px 18px 10px 40px;font-size:14px;font-family:var(--font);
+  font-weight:600;color:var(--td);outline:none;
+  transition:border-color var(--tr),box-shadow var(--tr);
+}
+.srch:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,77,166,.11)}
+.srch::placeholder{color:var(--ts)}
+.srch-wrap{position:relative;flex:1;min-width:160px}
+.srch-wrap::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
+.fltbtn{
+  background:var(--cb);border:2px solid var(--bd);border-radius:22px;
+  padding:9px 16px;font-size:12px;font-weight:700;color:var(--tm);
+  cursor:pointer;font-family:var(--font);
+  transition:all var(--tr);white-space:nowrap;
+}
+.fltbtn:hover,.fltbtn.on{background:var(--gm);color:#fff;border-color:transparent}
+
+/* ============================================================
+   QUOTE BANNER
+============================================================ */
+.qbanner{
+  background:linear-gradient(135deg,rgba(255,110,180,.08),rgba(255,77,166,.05));
+  border:1.5px solid rgba(255,158,203,.35);border-radius:var(--rl);
+  padding:18px 22px;display:flex;gap:14px;align-items:flex-start;
+  position:relative;overflow:hidden;margin-bottom:26px;
+}
+.qbanner::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.28) 50%,transparent 60%);
+  background-size:200% auto;animation:shimmer 5s linear infinite;
+}
+.qico{font-size:28px;flex-shrink:0;animation:hbeat 2.2s ease-in-out infinite}
+.qtxt{font-size:13px;font-weight:700;color:var(--tm);line-height:1.7;font-style:italic}
+.qauth{font-size:11px;font-weight:600;color:var(--ts);margin-top:3px}
+.qref{
+  position:absolute;top:10px;right:12px;background:none;border:none;
+  font-size:15px;cursor:pointer;color:var(--p2);
+  transition:transform var(--tr),color var(--tr);
+}
+.qref:hover{color:var(--deep);transform:rotate(180deg) scale(1.15)}
+
+/* ============================================================
+   YEAR CARDS
+============================================================ */
+.ygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+/* Year cards — hapus backdrop-filter */
+.ycard{
+  background:var(--cb);
+  border:2px solid rgba(255,184,217,.38);border-radius:var(--rl);
+  padding:24px 20px;cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow var(--tr),border-color var(--tr);
+  animation:slideUp .5s ease both;
+}
+.ycard::before{/* top ribbon */
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:var(--gm);border-radius:var(--rl) var(--rl) 0 0;
+}
+.ycard:hover{
+  transform:translateY(-10px) scale(1.015);
+  box-shadow:var(--sl),0 0 28px rgba(255,77,166,.28);
+  border-color:var(--accent);
+}
+.ycard:nth-child(1){animation-delay:.1s}.ycard:nth-child(2){animation-delay:.2s}
+.ycard:nth-child(3){animation-delay:.3s}.ycard:nth-child(4){animation-delay:.4s}
+.yemoji{font-size:42px;display:block;margin-bottom:12px;
+         /* bob animation hanya di 1 emoji saja sudah cukup */
+         filter:drop-shadow(0 4px 8px rgba(255,77,166,.3))}
+.yyear{font-size:30px;font-weight:900;background:var(--gm);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
+.ydesc{color:var(--ts);font-size:12px;font-weight:600;margin-bottom:14px;line-height:1.6}
+.ybadge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--gm);color:#fff;padding:5px 13px;border-radius:22px;
+  font-size:11px;font-weight:800;
+  /* animasi badge dihapus — 4 elemen animasi sekaligus boros */
+  box-shadow:0 3px 10px rgba(214,51,132,.24);
+}
+/* progress */
+.ypbar{margin-top:12px;height:5px;background:rgba(255,110,180,.12);border-radius:3px;overflow:hidden}
+.ypfill{height:100%;background:var(--gm);border-radius:3px;
+         animation:progFill .9s cubic-bezier(.34,1.56,.64,1) both .5s;
+         --w:0%}
+.yplbl{font-size:10px;font-weight:700;color:var(--ts);margin-top:3px}
+/* last photo preview on card */
+.ythumb{
+  width:100%;height:80px;object-fit:cover;
+  border-radius:var(--rs);margin-top:12px;
+  border:2px solid rgba(255,184,217,.4);
+  display:none; /* shown via JS */
+}
+
+/* ============================================================
+   MODAL BASE
+============================================================ */
+.mover{
+  display:none;position:fixed;inset:0;
+  background:rgba(35,5,22,.58);backdrop-filter:blur(6px);
+  z-index:1000;align-items:center;justify-content:center;padding:18px;
+}
+.mover.on{display:flex;animation:fadeIn .28s ease}
+/* Modal box — kurangi blur */
+.mbox{
+  background:var(--cb);
+  border:1.5px solid rgba(255,180,210,.42);border-radius:var(--rx);
+  max-width:700px;width:100%;max-height:90vh;overflow-y:auto;padding:28px;
+  position:relative;
+  animation:modalIn .32s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:var(--sl);
+  scrollbar-width:thin;scrollbar-color:var(--p3) transparent;
+}
+.mbox::-webkit-scrollbar{width:5px}
+.mbox::-webkit-scrollbar-thumb{background:var(--p3);border-radius:3px}
+.mbtnx{
+  position:absolute;top:14px;right:16px;
+  background:rgba(255,77,166,.1);border:none;
+  font-size:24px;cursor:pointer;color:var(--ts);
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:color var(--tr),transform var(--tr),background var(--tr);
+}
+.mbtnx:hover{color:var(--deep);transform:rotate(90deg) scale(1.08);background:rgba(255,77,166,.18)}
+.mtitle{
+  font-size:22px;font-weight:900;background:var(--gm);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:18px;padding-right:44px;
+}
+
+/* ============================================================
+   GALLERY MODAL TOOLBAR
+============================================================ */
+.gtbar{display:flex;gap:9px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.addlbl{
+  flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:7px;
+  color:var(--accent);font-weight:800;font-size:13px;cursor:pointer;
+  padding:10px 14px;border:2.5px dashed var(--p2);border-radius:var(--rm);
+  background:rgba(255,240,247,.55);transition:all var(--tr);font-family:var(--font);
+}
+.addlbl:hover{background:rgba(255,77,166,.07);border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--ss)}
+#finput{display:none}
+.gsbtn{
+  background:var(--cb);border:2px solid var(--bd);border-radius:10px;
+  padding:9px 13px;font-size:11px;font-weight:700;color:var(--tm);
+  cursor:pointer;font-family:var(--font);transition:all var(--tr);white-space:nowrap;
+}
+.gsbtn:hover,.gsbtn.on{background:var(--gm);color:#fff;border-color:transparent}
+.ssBtn{
+  background:var(--gm);border:none;border-radius:10px;
+  padding:9px 14px;font-size:11px;font-weight:800;color:#fff;
+  cursor:pointer;font-family:var(--font);transition:transform var(--tr),box-shadow var(--tr);
+}
+.ssBtn:hover{transform:translateY(-2px);box-shadow:var(--ss)}
+
+/* ============================================================
+   GALLERY GRID
+============================================================ */
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:11px}
+.pi{
+  aspect-ratio:1/1;border-radius:var(--rs);overflow:hidden;
+  border:2.5px solid transparent;background:var(--p4);
+  position:relative;cursor:pointer;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),border-color var(--tr),box-shadow var(--tr);
+}
+.pi:hover{transform:scale(1.06);border-color:var(--accent);box-shadow:0 7px 20px rgba(255,77,166,.26)}
+.pi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .38s ease}
+.pi:hover img{transform:scale(1.07)}
+/* caption overlay */
+.picap{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(25,0,16,.68));
+  color:#fff;font-size:10px;font-weight:700;
+  padding:16px 5px 5px;opacity:0;transition:opacity .22s;
+  text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.pi:hover .picap{opacity:1}
+/* action buttons */
+.pi-del,.pi-edit,.pi-dl{
+  position:absolute;width:24px;height:24px;border-radius:50%;border:none;
+  color:#fff;font-size:10px;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  transition:background var(--tr),transform var(--tr);
+}
+.pi-del{top:5px;right:5px;background:rgba(50,0,25,.62)}
+.pi-edit{top:5px;left:5px;background:rgba(255,77,166,.65)}
+.pi-dl{bottom:5px;right:5px;background:rgba(255,77,166,.65)}
+.pi:hover .pi-del,.pi:hover .pi-edit,.pi:hover .pi-dl{display:flex}
+.pi-del:hover{background:rgba(200,30,60,.9);transform:scale(1.12)}
+.pi-edit:hover,.pi-dl:hover{background:rgba(214,51,132,.9)}
+/* empty */
+.gempty{grid-column:1/-1;height:180px;display:flex;flex-direction:column;
+         align-items:center;justify-content:center;gap:12px}
+.gempty span:first-child{font-size:40px;animation:bob 2s ease-in-out infinite}
+.gempty span:last-child{font-size:13px;font-weight:600;color:var(--ts)}
+
+/* ============================================================
+   CAPTION MODAL
+============================================================ */
+#cap-modal .mbox{max-width:360px}
+.ci{
+  width:100%;border:2px solid var(--bd);border-radius:var(--rs);
+  padding:11px 15px;font-size:14px;font-family:var(--font);font-weight:600;
+  background:rgba(255,240,247,.8);color:var(--td);outline:none;
+  transition:border-color var(--tr),box-shadow var(--tr);
+}
+.ci:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,77,166,.11)}
+.cicnt{font-size:10px;color:var(--ts);text-align:right;margin-top:4px;font-weight:600}
+.btn-svcap{
+  margin-top:13px;width:100%;padding:12px;background:var(--gm);
+  border:none;border-radius:var(--rs);color:#fff;font-size:14px;
+  font-family:var(--font);font-weight:800;cursor:pointer;
+  transition:transform var(--tr),box-shadow var(--tr);
+}
+.btn-svcap:hover{transform:translateY(-2px);box-shadow:var(--ss)}
+
+/* ============================================================
+   SLIDESHOW MODAL
+============================================================ */
+#ss-modal.mover{background:rgba(8,0,6,.96)}
+#ss-modal .mbox{
+  max-width:860px;background:transparent;border:none;
+  box-shadow:none;padding:0;overflow:visible;max-height:none;
+}
+.ssc{position:relative;width:100%;text-align:center}
+.ssimgw{position:relative;display:inline-block}
+#ssImg{max-width:88vw;max-height:72vh;object-fit:contain;
+        border-radius:var(--rm);box-shadow:0 0 55px rgba(255,77,166,.38)}
+.ssnav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,77,166,.28);border:2px solid rgba(255,180,210,.38);
+  color:#fff;font-size:20px;width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background var(--tr),transform var(--tr);z-index:5;
+}
+.ssnav:hover{background:rgba(255,77,166,.55);transform:translateY(-50%) scale(1.1)}
+#ss-prev{left:-22px}#ss-next{right:-22px}
+.sscap{color:rgba(255,210,230,.88);font-size:13px;font-weight:700;margin-top:10px;min-height:18px}
+.ssctr{color:rgba(255,210,230,.55);font-size:11px;margin-top:4px;font-weight:600}
+.ssprg{height:3px;background:rgba(255,180,210,.18);border-radius:2px;margin-top:9px;overflow:hidden}
+.ssprg div{height:100%;background:var(--gm);border-radius:2px;transition:width .38s ease}
+.ssctrl{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.ssctrl button{
+  background:rgba(255,77,166,.22);border:2px solid rgba(255,180,210,.35);color:#fff;
+  padding:7px 18px;border-radius:22px;font-size:12px;font-family:var(--font);
+  font-weight:800;cursor:pointer;transition:background var(--tr);
+}
+.ssctrl button:hover{background:rgba(255,77,166,.48)}
+
+/* ============================================================
+   LIGHTBOX
+============================================================ */
+.lbx{display:none;position:fixed;inset:0;background:rgba(15,0,10,.95);
+      z-index:2000;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.lbx.on{display:flex;animation:fadeIn .2s ease}
+#lbImg{max-width:90vw;max-height:82vh;object-fit:contain;border-radius:var(--rm);
+        box-shadow:0 0 55px rgba(255,77,166,.38);animation:slideUp .28s ease}
+.lbcap{color:rgba(255,210,230,.85);font-size:13px;font-weight:700;
+        background:rgba(25,0,16,.7);backdrop-filter:blur(8px);
+        padding:8px 22px;border-radius:22px;max-width:80vw;text-align:center;
+        display:none}
+.lbx-close{position:fixed;top:16px;right:16px;background:rgba(255,77,166,.24);
+            border:2px solid rgba(255,180,210,.38);color:#fff;font-size:24px;cursor:pointer;
+            width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            transition:background var(--tr),transform var(--tr)}
+.lbx-close:hover{background:rgba(255,77,166,.5);transform:rotate(90deg) scale(1.08)}
+/* lightbox nav arrows */
+.lbnav{position:fixed;top:50%;transform:translateY(-50%);
+        background:rgba(255,77,166,.22);border:2px solid rgba(255,180,210,.3);
+        color:#fff;font-size:22px;width:46px;height:46px;border-radius:50%;
+        display:flex;align-items:center;justify-content:center;
+        cursor:pointer;transition:background var(--tr),transform var(--tr)}
+.lbnav:hover{background:rgba(255,77,166,.48);transform:translateY(-50%) scale(1.1)}
+#lb-prev{left:14px}#lb-next{right:14px}
+
+/* ============================================================
+   BACKUP MODAL
+============================================================ */
+#bkp-modal .mbox{max-width:420px}
+.bsec{margin-bottom:18px}
+.btitle{font-size:15px;font-weight:800;color:var(--td);margin-bottom:9px}
+.bkpbtn{
+  width:100%;padding:12px;border:none;border-radius:var(--rs);
+  font-size:13px;font-family:var(--font);font-weight:800;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:transform var(--tr),box-shadow var(--tr);margin-bottom:7px;
+}
+.bkpbtn.exp{background:var(--gm);color:#fff}
+.bkpbtn.imp{background:var(--cb);color:var(--deep);border:2px solid var(--bd)}
+.bkpbtn:hover{transform:translateY(-2px);box-shadow:var(--ss)}
+.bnote{font-size:11px;color:var(--ts);font-weight:600;line-height:1.6}
+#impFi{display:none}
+
+/* ============================================================
+   CONFIRM DIALOG
+============================================================ */
+.cfdlg{display:none;position:fixed;inset:0;background:rgba(40,5,22,.58);
+        backdrop-filter:blur(8px);z-index:3000;align-items:center;justify-content:center;padding:18px}
+.cfdlg.on{display:flex;animation:fadeIn .2s ease}
+/* Confirm dialog box — hapus backdrop-filter */
+.cfbox{background:var(--cb);border:1.5px solid var(--bd);
+        border-radius:var(--rl);padding:28px 24px;max-width:320px;width:100%;
+        text-align:center;box-shadow:var(--sl);animation:modalIn .26s ease}
+.cfbox h3{font-size:17px;color:var(--td);margin-bottom:7px;font-weight:800}
+.cfbox p{color:var(--ts);font-size:12px;margin-bottom:22px;font-weight:600;line-height:1.6}
+.cfacts{display:flex;gap:10px;justify-content:center}
+.cf-no{padding:10px 22px;border:2px solid var(--bd);border-radius:var(--rs);
+        background:none;color:var(--tm);font-size:13px;font-family:var(--font);font-weight:700;
+        cursor:pointer;transition:background var(--tr)}
+.cf-no:hover{background:var(--p5)}
+.cf-yes{padding:10px 22px;background:linear-gradient(135deg,#e53e3e,#c53030);border:none;
+         border-radius:var(--rs);color:#fff;font-size:13px;font-family:var(--font);font-weight:700;
+         cursor:pointer;transition:opacity var(--tr),transform var(--tr)}
+.cf-yes:hover{opacity:.88;transform:translateY(-1px)}
+
+/* ============================================================
+   LOVE LETTER FULL MODAL (new feature)
+============================================================ */
+#love-modal .mbox{max-width:520px;text-align:center}
+.love-envelope{font-size:56px;display:block;margin:0 auto 16px;animation:hbeat 2s ease-in-out infinite}
+.love-body{font-size:14px;font-weight:700;color:var(--tm);line-height:1.9;
+            background:linear-gradient(135deg,rgba(255,110,180,.07),rgba(255,77,166,.04));
+            border:1.5px solid rgba(255,158,203,.3);border-radius:var(--rm);padding:20px 18px;
+            font-style:italic;margin-bottom:16px}
+.love-sig{font-size:13px;font-weight:800;color:var(--deep)}
+.love-hearts{font-size:22px;letter-spacing:6px;animation:hbeat 1.5s ease-in-out infinite}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:768px){
+  .lbox{padding:28px 20px}.ltitle{font-size:23px}
+  .htitle{font-size:23px}.hname{font-size:17px}
+  .ggrid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
+  .sbar{gap:20px}.cdown-units{gap:14px}
+  #ss-prev{left:-8px}#ss-next{right:-8px}
+  .lbnav{width:38px;height:38px;font-size:18px}
+}
+@media(max-width:480px){
+  .lbox{padding:24px 15px;max-width:97%}.ltitle{font-size:20px}
+  .htitle{font-size:19px}.mhdr{padding:50px 18px 36px}
+  .btnout{top:10px;right:10px;padding:6px 11px;font-size:11px}
+  .ygrid{grid-template-columns:1fr}
+  .mbox{padding:20px 14px;max-width:97%}
+  .ggrid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:7px}
+  .sbar{gap:12px;flex-wrap:wrap}.cdown-units{gap:10px}
+  #toolbar{bottom:14px;right:14px}
+  .tbb{width:42px;height:42px;font-size:17px}
+}
+
+/* ============================================================
+   AI CHAT BUBBLE + WINDOW
+============================================================ */
+
+/* AI fab — hapus glow animation (mahal) */
+#ai-fab{
+  position:fixed;bottom:22px;left:22px;z-index:600;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--gm);border:none;
+  font-size:24px;cursor:pointer;
+  display:none;
+  align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(255,77,166,.45);
+  transition:transform .25s,box-shadow .25s;
+}
+#ai-fab:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(255,77,166,.65)}
+#ai-fab .ai-notif{
+  position:absolute;top:-2px;right:-2px;
+  width:14px;height:14px;background:#ff4444;
+  border-radius:50%;border:2px solid #fff;
+  display:none;
+}
+
+/* AI chat window — satu backdrop-filter saja di window utama */
+#ai-window{
+  position:fixed;bottom:86px;left:22px;z-index:601;
+  width:360px;max-width:calc(100vw - 32px);
+  background:var(--cb);
+  border:1.5px solid rgba(255,180,210,.5);
+  border-radius:var(--rx);
+  box-shadow:var(--sl);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+}
+#ai-window.on{
+  display:flex;
+  animation:modalIn .32s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+/* Header chat */
+.ai-hdr{
+  background:var(--gm);padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+  position:relative;
+}
+.ai-hdr-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.ai-hdr-info{flex:1}
+.ai-hdr-name{color:#fff;font-size:14px;font-weight:800;line-height:1.2}
+.ai-hdr-status{color:rgba(255,255,255,.8);font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
+.ai-status-dot{width:7px;height:7px;background:#5dff8a;border-radius:50%;animation:glow 2s ease-in-out infinite}
+.ai-hdr-close{
+  background:none;border:none;color:rgba(255,255,255,.8);
+  font-size:20px;cursor:pointer;padding:4px;
+  transition:color .2s,transform .2s;
+}
+.ai-hdr-close:hover{color:#fff;transform:scale(1.15)}
+/* settings cog */
+.ai-hdr-cfg{
+  background:none;border:none;color:rgba(255,255,255,.7);
+  font-size:16px;cursor:pointer;padding:4px;
+  transition:color .2s,transform .3s;
+}
+.ai-hdr-cfg:hover{color:#fff;transform:rotate(60deg)}
+
+/* API key settings panel */
+.ai-cfg-panel{
+  background:rgba(255,240,247,.9);border-bottom:1px solid var(--bd);
+  padding:12px 14px;display:none;flex-direction:column;gap:8px;
+}
+.ai-cfg-panel.show{display:flex}
+.ai-cfg-row{display:flex;gap:8px;align-items:center}
+.ai-cfg-input{
+  flex:1;border:2px solid var(--bd);border-radius:var(--rs);
+  padding:8px 12px;font-size:12px;font-family:var(--font);font-weight:600;
+  background:rgba(255,255,255,.9);color:var(--td);outline:none;
+  transition:border-color .2s;
+}
+.ai-cfg-input:focus{border-color:var(--accent)}
+.ai-cfg-save{
+  background:var(--gm);border:none;border-radius:var(--rs);
+  color:#fff;font-size:12px;font-family:var(--font);font-weight:800;
+  padding:8px 14px;cursor:pointer;white-space:nowrap;
+  transition:transform .2s;
+}
+.ai-cfg-save:hover{transform:translateY(-1px)}
+.ai-cfg-note{font-size:10px;color:var(--ts);font-weight:600;line-height:1.5}
+.ai-cfg-note a{color:var(--deep);text-decoration:underline}
+
+/* Messages area */
+.ai-msgs{
+  flex:1;overflow-y:auto;padding:14px;
+  display:flex;flex-direction:column;gap:10px;
+  max-height:320px;min-height:200px;
+  scrollbar-width:thin;scrollbar-color:var(--p3) transparent;
+}
+.ai-msgs::-webkit-scrollbar{width:4px}
+.ai-msgs::-webkit-scrollbar-thumb{background:var(--p3);border-radius:2px}
+
+/* Bubble messages */
+.ai-bubble{
+  display:flex;gap:8px;align-items:flex-end;
+  animation:slideUp .22s ease;
+}
+.ai-bubble.user{flex-direction:row-reverse}
+.ai-bubble-avatar{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  background:rgba(255,110,180,.2);
+}
+.ai-bubble.user .ai-bubble-avatar{background:var(--gm)}
+.ai-msg-text{
+  max-width:78%;
+  background:#ffffff;
+  border:1px solid rgba(255,184,217,.5);
+  border-radius:16px 16px 16px 4px;
+  padding:9px 13px;font-size:13px;font-weight:600;
+  color:#3d1a2e;
+  line-height:1.6;
+  word-break:break-word;
+}
+[data-theme=dark] .ai-msg-text{
+  background:#2d0f1e;
+  color:#ffd6ea;
+  border-color:rgba(255,100,160,.3);
+}
+.ai-bubble.user .ai-msg-text{
+  background:var(--gm);color:#ffffff;border:none;
+  border-radius:16px 16px 4px 16px;
+  text-shadow:0 1px 2px rgba(0,0,0,.15);
+}
+.ai-msg-time{font-size:10px;color:var(--ts);text-align:right;margin-top:3px;font-weight:600}
+
+/* Typing indicator */
+.ai-typing .ai-msg-text{
+  display:flex;align-items:center;gap:4px;
+  padding:12px 16px;
+}
+.ai-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--p2);
+  animation:aiDot 1.2s ease-in-out infinite;
+}
+.ai-dot:nth-child(2){animation-delay:.2s}
+.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes aiDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+
+/* Quick reply chips */
+.ai-chips{
+  display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px;
+}
+.ai-chip{
+  background:rgba(255,110,180,.1);border:1.5px solid rgba(255,184,217,.6);
+  border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;
+  color:var(--tm);cursor:pointer;font-family:var(--font);
+  transition:all .2s;white-space:nowrap;
+}
+.ai-chip:hover{background:var(--gm);color:#fff;border-color:transparent;transform:translateY(-1px)}
+
+/* Input bar */
+.ai-input-bar{
+  display:flex;gap:8px;align-items:flex-end;
+  padding:10px 12px;border-top:1px solid rgba(255,180,210,.25);
+  background:rgba(255,255,255,.4);
+}
+.ai-textarea{
+  flex:1;border:2px solid var(--bd);border-radius:20px;
+  padding:9px 14px;font-size:13px;font-family:var(--font);font-weight:600;
+  color:var(--td);background:rgba(255,240,247,.8);outline:none;
+  resize:none;max-height:80px;line-height:1.5;
+  transition:border-color .2s,box-shadow .2s;
+  overflow-y:auto;
+}
+.ai-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,77,166,.1)}
+.ai-textarea::placeholder{color:var(--ts);opacity:.75}
+.ai-send{
+  width:38px;height:38px;flex-shrink:0;
+  background:var(--gm);border:none;border-radius:50%;
+  color:#fff;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 2px 8px rgba(255,77,166,.4);
+}
+.ai-send:hover{transform:scale(1.1);box-shadow:0 4px 14px rgba(255,77,166,.5)}
+.ai-send:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Mode indicator */
+.ai-mode-tag{
+  text-align:center;font-size:10px;font-weight:700;
+  color:var(--ts);padding:4px 0;
+}
+.ai-mode-tag span{
+  background:rgba(255,77,166,.1);border:1px solid rgba(255,184,217,.5);
+  padding:2px 8px;border-radius:10px;
+}
+
+@media(max-width:480px){
+  #ai-window{width:calc(100vw - 32px);bottom:80px;left:16px}
+  #ai-fab{bottom:16px;left:16px;width:48px;height:48px;font-size:21px}
+}
+</style>
+</head>
+<body>
+
+<!-- CANVAS (shared loop: particles + petals) -->
+<canvas id="bgc" aria-hidden="true"></canvas>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <button class="tbb" id="tbMusic"   data-tip="Musik">🎵</button>
+  <button class="tbb" id="tbDark"    data-tip="Dark Mode">🌙</button>
+  <button class="tbb" id="tbBackup"  data-tip="Backup & Restore">💾</button>
+  <button class="tbb" id="tbLove"    data-tip="Surat Cinta">💌</button>
+  <button class="tbb" id="tbTree"    data-tip="Pohon Cinta">🌳</button>
+</div>
+
+<!-- ======================================================
+     LOGIN PAGE
+====================================================== -->
+<div id="pg-login" role="main">
+  <div class="lbox">
+    <div class="lstar" aria-hidden="true">
+      <span style="top:8%;left:10%;--ss:15px;--sd:1.8s;--sdl:0s">✦</span>
+      <span style="top:11%;right:11%;--ss:11px;--sd:2.2s;--sdl:.4s">✧</span>
+      <span style="bottom:13%;left:7%;--ss:9px;--sd:1.5s;--sdl:.8s">✦</span>
+      <span style="bottom:9%;right:8%;--ss:13px;--sd:2.5s;--sdl:.2s">✧</span>
+      <span style="top:44%;right:4%;--ss:8px;--sd:2s;--sdl:1s">✦</span>
+    </div>
+    <span class="llogo">🦋</span>
+    <h1 class="ltitle">Apa yhh</h1>
+    <form id="lform" novalidate>
+      <div class="fg">
+        <label class="fl" for="pwi">kode sikrit</label>
+        <div class="iw">
+          <input type="password" id="pwi" class="fi"
+            placeholder="Clue : jadian"
+            autocomplete="current-password" aria-describedby="emsg" autofocus/>
+          <button type="button" class="tpw" id="tpw">👁️</button>
+        </div>
+        <p id="emsg" class="emsg" role="alert" aria-live="polite"></p>
+      </div>
+      <button type="submit" class="btnl" id="lbtn">
+        <span id="ltxt">masukk</span>
+        <span class="spin" id="lspin" aria-hidden="true"></span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ======================================================
+     MAIN PAGE
+====================================================== -->
+<div id="pg-main" role="main">
+
+  <header class="mhdr">
+    <div class="hsp" aria-hidden="true">
+      <i style="top:18%;left:5%;--hs:8px;--hd:1.8s;--hdl:0s"></i>
+      <i style="top:38%;left:12%;--hs:5px;--hd:2.3s;--hdl:.5s"></i>
+      <i style="top:14%;right:7%;--hs:9px;--hd:2s;--hdl:.3s"></i>
+      <i style="top:52%;right:5%;--hs:6px;--hd:1.5s;--hdl:.8s"></i>
+      <i style="top:66%;left:19%;--hs:7px;--hd:2.5s;--hdl:.15s"></i>
+      <i style="top:24%;right:21%;--hs:4px;--hd:1.9s;--hdl:.6s"></i>
+    </div>
+    <button class="btnout" id="btnOut">🚪 Keluar</button>
+    <h1 class="htitle"> Halloooowwwwww </h1>
+    <h1 class="hname"> welkam, Reisa Dea Ananda💕</h1>
+    <p class="hmsg"><span class="hbeat">❤️</span> Selamat datang di web uji coba aku -abuyy</p>
+
+  </header>
+
+  <!-- COUNTDOWN -->
+  <div class="cdown">
+    <div class="cdown-lbl">Bersama selama</div>
+    <div class="cdown-units">
+      <div class="cdu"><div class="cdn" id="cdD">--</div><div class="cdl">Hari</div></div>
+      <div class="cdu"><div class="cdn" id="cdH">--</div><div class="cdl">Jam</div></div>
+      <div class="cdu"><div class="cdn" id="cdM">--</div><div class="cdl">Menit</div></div>
+      <div class="cdu"><div class="cdn" id="cdS">--</div><div class="cdl">Detik</div></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="sbar">
+    <div class="si"><div class="snum" id="stTotal">0</div><div class="slbl">Total Foto</div></div>
+    <div class="si"><div class="snum" id="stYearsTogether">0</div><div class="slbl">Tahun Bersama</div></div>
+    <div class="si"><div class="snum" id="stActive">0</div><div class="slbl">Tahun Aktif</div></div>
+  </div>
+
+  <section class="csec">
+    <h2 class="stitle">📚 Koleksi ingatan</h2>
+
+    <!-- TOP BAR: search + filter -->
+    <div class="topbar">
+      <div class="srch-wrap">
+        <input type="search" class="srch" id="srch" placeholder="Cari tahun atau deskripsi…"/>
+      </div>
+      <button class="fltbtn on" data-year="all">Semua</button>
+      <button class="fltbtn" data-year="2023">2023</button>
+      <button class="fltbtn" data-year="2024">2024</button>
+      <button class="fltbtn" data-year="2025">2025</button>
+      <button class="fltbtn" data-year="2026">2026</button>
+    </div>
+
+    <!-- QUOTE BANNER -->
+    <div class="qbanner">
+      <span class="qico">💌</span>
+      <div>
+        <p class="qtxt" id="qtxt">"Cinta bukan soal seberapa lama kamu mengenal seseorang, tapi seberapa dalam kamu memahaminya."</p>
+        <p class="qauth" id="qauth">—</p>
+      </div>
+      <button class="qref" id="qref" aria-label="Ganti quote">🔄</button>
+    </div>
+
+    <div class="ygrid" id="ygrid"></div>
+  </section>
+</div>
+
+<!-- ======================================================
+     GALLERY MODAL
+====================================================== -->
+<div class="mover" id="galMod" role="dialog" aria-modal="true" aria-labelledby="galTitle">
+  <div class="mbox">
+    <button class="mbtnx" id="galClose">×</button>
+    <h2 class="mtitle" id="galTitle">📸 Kenangan Tahun</h2>
+    <div class="gtbar">
+      <label class="addlbl" for="finput" tabindex="0" role="button">🌸 Tambah Foto</label>
+      <input type="file" id="finput" accept="image/*" multiple/>
+      <button class="gsbtn on" data-s="date">📅 Terbaru</button>
+      <button class="gsbtn"    data-s="name">🔤 Caption</button>
+      <button class="ssBtn"    id="ssBtnOpen">▶ Slideshow</button>
+    </div>
+    <div class="ggrid" id="ggrid"></div>
+  </div>
+</div>
+
+<!-- ======================================================
+     CAPTION MODAL
+====================================================== -->
+<div class="mover" id="cap-modal" role="dialog" aria-modal="true">
+  <div class="mbox" style="max-width:360px">
+    <button class="mbtnx" id="capClose">×</button>
+    <h2 class="mtitle">✏️ Edit Caption</h2>
+    <input type="text" class="ci" id="capIn" maxlength="60" placeholder="Tulis caption foto…"/>
+    <p class="cicnt"><span id="capLen">0</span>/60</p>
+    <button class="btn-svcap" id="capSave">Simpan</button>
+  </div>
+</div>
+
+<!-- ======================================================
+     SLIDESHOW MODAL
+====================================================== -->
+<div class="mover" id="ss-modal" role="dialog" aria-modal="true" style="background:rgba(8,0,6,.96)">
+  <div class="mbox" style="max-width:860px;background:transparent;border:none;box-shadow:none;padding:0;overflow:visible;max-height:none">
+    <button class="mbtnx" id="ssClose" style="position:fixed;top:16px;right:16px">×</button>
+    <div class="ssc">
+      <div class="ssimgw">
+        <button class="ssnav" id="ss-prev">‹</button>
+        <img id="ssImg" src="" alt="Slideshow"/>
+        <button class="ssnav" id="ss-next">›</button>
+      </div>
+      <p class="sscap" id="ssCap"></p>
+      <p class="ssctr" id="ssCtr"></p>
+      <div class="ssprg"><div id="ssPfill" style="width:0%"></div></div>
+      <div class="ssctrl">
+        <button id="ssPlay">⏸ Pause</button>
+        <button id="ssDlCur">⬇ Unduh</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     LIGHTBOX
+====================================================== -->
+<div class="lbx" id="lbx" role="dialog" aria-modal="true">
+  <button class="lbx-close" id="lbxClose">×</button>
+  <button class="lbnav" id="lb-prev">‹</button>
+  <img id="lbImg" src="" alt="Foto kenangan"/>
+  <div class="lbcap" id="lbCap"></div>
+  <button class="lbnav" id="lb-next">›</button>
+</div>
+
+<!-- ======================================================
+     BACKUP MODAL
+====================================================== -->
+<div class="mover" id="bkp-modal" role="dialog" aria-modal="true">
+  <div class="mbox" style="max-width:420px">
+    <button class="mbtnx" id="bkpClose">×</button>
+    <h2 class="mtitle">💾 Backup & Restore</h2>
+    <div class="bsec">
+      <p class="btitle">📤 Export Data</p>
+      <button class="bkpbtn exp" id="btnExp">💾 Download Backup (.json)</button>
+      <p class="bnote">Semua foto & caption disimpan dalam satu file JSON.</p>
+    </div>
+    <div class="bsec">
+      <p class="btitle">📥 Import Data</p>
+      <button class="bkpbtn imp" id="btnImpTrig">📂 Pilih File Backup</button>
+      <input type="file" id="impFi" accept=".json"/>
+      <p class="bnote">Import akan menggabungkan data. Foto duplikat diabaikan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     LOVE LETTER MODAL (new feature)
+====================================================== -->
+<div class="mover" id="love-modal" role="dialog" aria-modal="true">
+  <div class="mbox" style="max-width:500px;text-align:center">
+    <button class="mbtnx" id="loveClose">×</button>
+    <span class="love-envelope">💌</span>
+    <h2 class="mtitle" style="text-align:center;padding-right:0">Surat untuk Reisa</h2>
+    <div class="love-body" id="loveBody">
+      Haloww Reisa Dea Ananda sayangkuu, cintakuu, semestakuu, punjaan hatiku♥<br><br>
+      kamu tauu nggaaa, tiap kalii aku ngeliatt foto foto lamaa kita, aku selaluu ngerasaa tenang dan bersyukur bangett. bersyukur karenaa kamu ada di ceritaa aku. bersyukur karenaa tiap momen yang kitaa jalanin selalu punyaa maknanya sendiri.<br><br>
+      kamu adalah bagian terbaik dalamm hari hari aku, senyum imup mu, tawa mu, bahkann saat kamuu merasaa sedih, semuanyaa masii terasaa indah buat aku~<br><br>
+      kenangan kenangann kita ini bukan sekedarr foto biasa yangg kita kumpulin. kenangan itu adalah buktii kalo kitaa pernah ada, pernah bahagia dan selalu berusaha buat ngejalanin hari harii kita.
+    </div>
+    <p class="love-sig">Dengan sepenuh hati,<br>Seseorang yang peduli padamu 🌸</p>
+    <p class="love-hearts">💗 💕 💖 💞 💓</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     CONFIRM DELETE
+====================================================== -->
+<div class="cfdlg" id="cfdlg" role="alertdialog" aria-modal="true">
+  <div class="cfbox">
+    <h3>🗑️ Hapus Foto?</h3>
+    <p>Foto ini akan dihapus permanen dan tidak bisa dikembalikan.</p>
+    <div class="cfacts">
+      <button class="cf-no"  id="cfNo">Batal</button>
+      <button class="cf-yes" id="cfYes">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     FLOATING PETALS (pure CSS – zero JS per frame)
+====================================================== -->
+<script>
+(function(){
+  const items=['🌸','🌺','🌷','🌹','🌼'];
+  for(let i=0;i<8;i++){  /* turun dari 14 */
+    const el=document.createElement('span');
+    el.className='petal';
+    el.textContent=items[i%items.length];
+    el.style.cssText=`left:${Math.random()*100}%;--sz:${Math.random()*10+11}px;--dr:${Math.random()*7+8}s;--dl2:${Math.random()*12}s`;
+    document.body.appendChild(el);
+  }
+})();
+</script>
+
+<!-- ======================================================
+     JELLYFISH + BUTTERFLY (pure CSS animations)
+====================================================== -->
+<script>
+(function(){
+  const f=document.createDocumentFragment();
+  [{l:'6%',t:'12%',d:'6s',dl:'0s'},{l:'80%',t:'9%',d:'7.5s',dl:'1.5s'},
+   {l:'42%',t:'68%',d:'5.8s',dl:'.9s'}]  /* 3 jellyfish, turun dari 4 */
+  .forEach(x=>{
+    const e=document.createElement('div');e.className='jf';
+    e.style.cssText=`left:${x.l};top:${x.t};--d:${x.d};--dl:${x.dl}`;
+    e.innerHTML=`<div class="jfb"></div><div class="jft">${[0,1,2,3,4].map(i=>`<div class="jfl" style="--tw:${2+i*.3}s;--ti:${i}"></div>`).join('')}</div>`;
+    f.appendChild(e);
+  });
+  [{l:'5%',t:'28%',d:'8s',dl:'0s'},{l:'63%',t:'20%',d:'10s',dl:'2s'},
+   {l:'32%',t:'60%',d:'9s',dl:'4s'}]  /* 3 butterfly, turun dari 4 */
+  .forEach(x=>{
+    const e=document.createElement('div');e.className='bf';
+    e.style.cssText=`left:${x.l};top:${x.t};--bd:${x.d};--bdl:${x.dl}`;
+    e.innerHTML='<div class="bfw"><div></div><div></div></div>';
+    f.appendChild(e);
+  });
+  document.body.appendChild(f);
+})();
+</script>
+
+<script>
+/* ============================================================
+   APP CORE
+============================================================ */
+const PW_HASH = CryptoJS.SHA256('210723').toString();
+const SK = 'memoir_session', MK = 'memoir_memories', CK = 'memoir_captions', TK = 'memoir_theme';
+const ANNIVERSARY = new Date('2023-07-21T00:00:00');
+const YEARS = [
+  {year:2023,emoji:'🐚',desc:'Awal yang indah'},
+  {year:2024,emoji:'🌊',desc:'Petualangan'},
+  {year:2025,emoji:'🦑',desc:'Rintangan dan ujian'},
+  {year:2026,emoji:'🦋',desc:'Cinta dan harapan baru?'},
+];
+
+const QUOTES = [
+  {q:'Cinta bukan soal seberapa lama kamu mengenal seseorang, tapi seberapa dalam kamu memahaminya.',a:'— Ai'},
+  {q:'Setiap foto menyimpan ribuan ingatan yang gabakal bisa diucapkan.',a:'— Abuy'},
+  {q:'Bersama kamu, setiap hari biasa terasa luar biasa.',a:'— Ai'},
+  {q:'Ingatan yang indah adalah hadiah terbaik yang bisa kita berdua simpan selamanya.',a:'— Abuy'},
+  {q:'Dalam setiap gambar ada cerita yang menunggu untuk diceritakan.',a:'— Ai'},
+  {q:'Waktu berlalu, kenangan tetap abadi di hatiku.',a:'— Abuy'},
+  {q:'Setiap momen bersamamu adalah halaman baru dari kisah kita.',a:'— Ai'},
+  {q:'Foto yg kita kumpulin bukan cuma sekedar gambar biasa, ia adalah jendela ke masalalu yang sangat berharga.',a:'— Abuy'},
+  {q:'Cinta yang tulus tidak butuh alasan untuk tetap ada.',a:'— Ai'},
+  {q:'Satu senyummu cukup untuk membuat hariku sempurna.',a:'— Ai'},
+];
+
+/* ---- Storage ---- */
+const gMem  = ()=>{try{return JSON.parse(localStorage.getItem(MK))||{}}catch{return{}}};
+const sMem  = d =>localStorage.setItem(MK,JSON.stringify(d));
+const gCaps = ()=>{try{return JSON.parse(localStorage.getItem(CK))||{}}catch{return{}}};
+const sCaps = d =>localStorage.setItem(CK,JSON.stringify(d));
+const gYP   = y =>gMem()[y]||[];
+const gCap  = (y,i)=>gCaps()[`${y}_${i}`]||'';
+
+const f2b64 = f=>new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsDataURL(f)});
+
+/* ============================================================
+   CANVAS — ONE rAF loop for particles + petals
+   (no DOM mutations, no layout reads per frame)
+============================================================ */
+(function(){
+  const cv=document.getElementById('bgc'),ctx=cv.getContext('2d');
+  let W,H;
+  const rsz=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};
+  rsz();window.addEventListener('resize',rsz,{passive:true});
+
+  const PC=[[255,110,180],[255,77,166],[255,158,203],[214,51,132],[255,184,217]];
+
+  /* -- Particles (rising bubbles) -- */
+  function mkP(init){
+    return{x:Math.random()*W,y:init?Math.random()*H:H+8,
+           r:Math.random()*2+.6,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.5+.2),
+           a:Math.random()*.35+.09,c:PC[0|(Math.random()*PC.length)]};
+  }
+  const parts=Array.from({length:25},(_,i)=>mkP(true));  /* turun dari 35 */
+
+  /* -- Canvas petals (emoji drawn on canvas) -- */
+  const PICS=['🌸','🌺','🌷','🌼'];
+  function mkPetal(init){
+    return{x:Math.random()*W,y:init?Math.random()*H:-28,
+           vy:Math.random()*.6+.3,vx:(Math.random()-.5)*.4,
+           rot:Math.random()*Math.PI*2,dr:(Math.random()-.5)*.016,
+           sz:Math.random()*8+10,a:Math.random()*.34+.28,
+           ic:PICS[0|(Math.random()*PICS.length)]};
+  }
+  const petals=Array.from({length:5},()=>mkPetal(true));  /* turun dari 8 */
+
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    /* particles */
+    for(let i=0;i<parts.length;i++){
+      const p=parts[i];p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-8){const np=mkP(false);Object.assign(p,np)}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;ctx.fill();
+    }
+    /* petals */
+    for(let i=0;i<petals.length;i++){
+      const p=petals[i];p.x+=p.vx;p.y+=p.vy;p.rot+=p.dr;
+      if(p.y>H+36){const np=mkPetal(false);Object.assign(p,np)}
+      ctx.save();ctx.globalAlpha=p.a;ctx.font=`${p.sz}px serif`;
+      ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+      ctx.fillText(p.ic,-p.sz/2,p.sz/2);ctx.restore();
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ============================================================
+   DARK MODE
+============================================================ */
+let dark=localStorage.getItem(TK)==='dark';
+const tbDark=document.getElementById('tbDark');
+function applyTheme(){document.documentElement.setAttribute('data-theme',dark?'dark':'light');tbDark.textContent=dark?'☀️':'🌙';}
+applyTheme();
+tbDark.addEventListener('click',()=>{dark=!dark;localStorage.setItem(TK,dark?'dark':'light');applyTheme();});
+
+/* ============================================================
+   MUSIC — MP3 backsound
+============================================================ */
+const bgAudio = new Audio('Olivia Rodrigo - drop dead (Official Music Video) - Copy.mp3.mp3');
+bgAudio.loop   = true;
+bgAudio.volume = 0.5;
+
+const tbM = document.getElementById('tbMusic');
+let mOn   = false;
+
+// Fade helper
+function fadeAudio(from, to, dur, cb){
+  const steps = 30, interval = dur/steps, delta = (to-from)/steps;
+  let v = from, t = setInterval(()=>{
+    v = Math.min(1, Math.max(0, v+delta));
+    bgAudio.volume = v;
+    if((delta>0&&v>=to)||(delta<0&&v<=to)){ clearInterval(t); if(cb)cb(); }
+  }, interval);
+}
+
+tbM.addEventListener('click', ()=>{
+  if(!mOn){
+    bgAudio.currentTime = bgAudio.currentTime || 0;
+    bgAudio.volume = 0;
+    bgAudio.play().then(()=>{
+      fadeAudio(0, 0.5, 1200);
+      mOn = true; tbM.textContent = '🔇';
+    }).catch(()=>{ /* autoplay blocked */ });
+  } else {
+    fadeAudio(bgAudio.volume, 0, 900, ()=>{ bgAudio.pause(); });
+    mOn = false; tbM.textContent = '🎵';
+  }
+});
+
+/* ============================================================
+   TOAST
+============================================================ */
+let tt=null;
+function toast(msg,ico='✓'){
+  let el=document.getElementById('_toast');if(el){clearTimeout(tt);el.remove();}
+  el=document.createElement('div');el.className='toast';el.id='_toast';
+  el.setAttribute('role','status');
+  el.innerHTML=`<span class="toast-ico">${ico}</span><span>${msg}</span>`;
+  document.body.appendChild(el);
+  tt=setTimeout(()=>{el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true});},2700);
+}
+
+/* ============================================================
+   QUOTES (auto-rotate + manual)
+============================================================ */
+let qI=0;
+function setQ(i){const q=QUOTES[i%QUOTES.length];document.getElementById('qtxt').textContent=`"${q.q}"`;document.getElementById('qauth').textContent=q.a;}
+setQ(0);
+document.getElementById('qref').addEventListener('click',()=>{qI=(qI+1)%QUOTES.length;setQ(qI);});
+setInterval(()=>{qI=(qI+1)%QUOTES.length;setQ(qI);},22000);
+
+/* ============================================================
+   COUNTDOWN (count-up from anniversary)
+============================================================ */
+(function(){
+  function tick(){
+    const diff=Date.now()-ANNIVERSARY;
+    if(diff<0){document.querySelector('.cdown').style.display='none';return;}
+    const s=Math.floor(diff/1000);
+    document.getElementById('cdD').textContent=String(Math.floor(s/86400)).padStart(3,'0');
+    document.getElementById('cdH').textContent=String(Math.floor(s/3600)%24).padStart(2,'0');
+    document.getElementById('cdM').textContent=String(Math.floor(s/60)%60).padStart(2,'0');
+    document.getElementById('cdS').textContent=String(s%60).padStart(2,'0');
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* ============================================================
+   SESSION
+============================================================ */
+const isIn   =()=>sessionStorage.getItem(SK)===PW_HASH;
+const mkSess =()=>sessionStorage.setItem(SK,PW_HASH);
+const rmSess =()=>sessionStorage.removeItem(SK);
+
+/* ============================================================
+   LOGIN
+============================================================ */
+const pwi =document.getElementById('pwi');
+const emsg=document.getElementById('emsg');
+const lbtn=document.getElementById('lbtn');
+const ltxt=document.getElementById('ltxt');
+const lspin=document.getElementById('lspin');
+const ldg =(on)=>{lbtn.disabled=on;ltxt.style.display=on?'none':'';lspin.style.display=on?'block':'none';};
+const shErr=(m)=>{emsg.textContent=m;emsg.classList.remove('on');void emsg.offsetWidth;emsg.classList.add('on');};
+const clErr=()=>{emsg.classList.remove('on');emsg.textContent='';};
+
+document.getElementById('tpw').addEventListener('click',function(){
+  const h=pwi.type==='password';pwi.type=h?'text':'password';this.textContent=h?'🙈':'👁️';
+});
+pwi.addEventListener('input',clErr);
+
+document.getElementById('lform').addEventListener('submit',async e=>{
+  e.preventDefault();const v=pwi.value.trim();
+  if(!v){shErr('Masukkan kode akses duluu yww.');return;}
+  ldg(true);await new Promise(r=>setTimeout(r,480));
+  if(CryptoJS.SHA256(v).toString()===PW_HASH){
+    mkSess();goMain();toast('Selamat datang! 💕','🌸');
+  }else{ldg(false);pwi.value='';shErr('Kode akses salah 💔');pwi.focus();}
+});
+
+/* ============================================================
+   PAGE SWITCH
+============================================================ */
+const pgL=document.getElementById('pg-login'),pgM=document.getElementById('pg-main');
+function goMain(){
+  pgL.style.display='none';pgM.style.display='block';
+  document.getElementById('toolbar').style.display='flex';
+  renderMain();
+}
+function goLogin(){
+  pgM.style.display='none';pgL.style.display='flex';
+  document.getElementById('toolbar').style.display='none';
+  pwi.value='';clErr();ldg(false);pwi.type='password';
+  document.getElementById('tpw').textContent='👁️';
+  setTimeout(()=>pwi.focus(),120);
+}
+document.getElementById('btnOut').addEventListener('click',()=>{closeGal();rmSess();goLogin();});
+
+/* ============================================================
+   STATS
+============================================================ */
+function updStats(){
+  const m=gMem();let tot=0,act=0;
+  YEARS.forEach(({year})=>{const c=(m[year]||[]).length;tot+=c;if(c)act++;});
+  const animN=(el,t)=>{let c=0;const st=Math.ceil(t/16)||1;const iv=setInterval(()=>{c=Math.min(c+st,t);el.textContent=c;if(c>=t)clearInterval(iv);},48);};
+  const te=document.getElementById('stTotal'),ae=document.getElementById('stActive');
+  if(te)animN(te,tot);if(ae)animN(ae,act);
+  // Hitung tahun bersama dari anniversary
+  const diff=Date.now()-ANNIVERSARY;
+  const years = diff>0 ? (diff/1000/60/60/24/365.25) : 0;
+  const el=document.getElementById('stYearsTogether');
+  if(el)el.textContent=years.toFixed(1).replace('.',',');
+}
+
+/* ============================================================
+   YEAR CARDS + SEARCH + FILTER
+============================================================ */
+let srchVal='',filterYear='all';
+
+document.getElementById('srch').addEventListener('input',e=>{srchVal=e.target.value.toLowerCase();renderCards();});
+document.querySelectorAll('.fltbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fltbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');filterYear=b.dataset.year;renderCards();
+  });
+});
+
+function renderMain(){renderCards();updStats();}
+
+function renderCards(){
+  const grid=document.getElementById('ygrid'),m=gMem();
+  grid.innerHTML='';
+  YEARS.forEach(({year,emoji,desc},ci)=>{
+    // filter
+    if(filterYear!=='all'&&String(year)!==filterYear)return;
+    if(srchVal&&!String(year).includes(srchVal)&&!desc.toLowerCase().includes(srchVal))return;
+    const photos=m[year]||[],cnt=photos.length;
+    const pct=Math.min(100,Math.round(cnt/30*100));
+    const card=document.createElement('div');card.className='ycard';
+    card.style.animationDelay=`${ci*.1+.08}s`;
+    card.setAttribute('tabindex','0');card.setAttribute('role','button');
+    // last photo thumb
+    const lastSrc=cnt?photos[cnt-1]:'';
+    card.innerHTML=`
+      <span class="yemoji">${emoji}</span>
+      <div class="yyear">${year}</div>
+      <div class="ydesc">${desc}</div>
+      <span class="ybadge" id="cnt-${year}">📷 ${cnt} kenangan</span>
+      <div class="ypbar"><div class="ypfill" id="pf-${year}" style="--w:${pct}%;width:0%"></div></div>
+      <div class="yplbl" id="ppl-${year}">${cnt} foto tersimpan</div>
+      ${lastSrc?`<img class="ythumb" src="${lastSrc}" alt="Preview" style="display:block">`:''}`;
+    card.addEventListener('click',()=>openGal(year));
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGal(year);}});
+    grid.appendChild(card);
+    setTimeout(()=>{const pf=document.getElementById(`pf-${year}`);if(pf)pf.style.width=pct+'%';},120);
+  });
+}
+
+function updCnt(year){
+  const cnt=gYP(year).length;
+  const el=document.getElementById(`cnt-${year}`);if(el)el.textContent=`📷 ${cnt} kenangan`;
+  const pp=document.getElementById(`ppl-${year}`);if(pp)pp.textContent=`${cnt} foto tersimpan`;
+  const pct=Math.min(100,Math.round(cnt/30*100));
+  const pf=document.getElementById(`pf-${year}`);if(pf)pf.style.width=pct+'%';
+  updStats();
+  // refresh thumb
+  renderCards();
+}
+
+/* ============================================================
+   GALLERY MODAL
+============================================================ */
+let curY=null,curSort='date';
+const galMod=document.getElementById('galMod'),ggrid=document.getElementById('ggrid');
+const galTitleEl=document.getElementById('galTitle'),finput=document.getElementById('finput');
+
+document.querySelectorAll('.gsbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    curSort=b.dataset.s;
+    document.querySelectorAll('.gsbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');if(curY)renderGal(curY);
+  });
+});
+
+function openGal(y){
+  curY=y;galTitleEl.textContent=`📸 Kenangan Tahun ${y}`;
+  galMod.classList.add('on');document.body.style.overflow='hidden';renderGal(y);
+}
+function closeGal(){galMod.classList.remove('on');document.body.style.overflow='';curY=null;finput.value='';}
+
+function renderGal(y){
+  const photos=gYP(y);ggrid.innerHTML='';
+  if(!photos.length){
+    ggrid.innerHTML='<div class="gempty"><span>📷</span><span>Belum ada kenangan di tahun ini</span></div>';return;
+  }
+  let idxs=[...Array(photos.length).keys()];
+  if(curSort==='name'){const caps=gCaps();idxs.sort((a,b)=>(caps[`${y}_${a}`]||'').localeCompare(caps[`${y}_${b}`]||''));}
+  idxs.forEach(i=>ggrid.appendChild(mkPI(photos[i],i,y)));
+}
+
+function mkPI(src,idx,y){
+  const d=document.createElement('div');d.className='pi';
+  const cap=gCap(y,idx);
+  const img=document.createElement('img');img.src=src;img.alt=`Kenangan ${y} #${idx+1}`;img.loading='lazy';
+  img.addEventListener('click',()=>openLbx(src,cap,y,idx));
+  const cEl=document.createElement('div');cEl.className='picap';cEl.textContent=cap;
+  const del=document.createElement('button');del.className='pi-del';del.textContent='✕';del.setAttribute('aria-label','Hapus');
+  del.addEventListener('click',e=>{e.stopPropagation();openCfDel(y,idx);});
+  const edit=document.createElement('button');edit.className='pi-edit';edit.textContent='✏';edit.setAttribute('aria-label','Caption');
+  edit.addEventListener('click',e=>{e.stopPropagation();openCapEdit(y,idx,cap);});
+  const dl=document.createElement('button');dl.className='pi-dl';dl.textContent='⬇';dl.setAttribute('aria-label','Download');
+  dl.addEventListener('click',e=>{e.stopPropagation();dlPhoto(src,y,idx);});
+  d.appendChild(img);d.appendChild(cEl);d.appendChild(del);d.appendChild(edit);d.appendChild(dl);
+  return d;
+}
+
+document.getElementById('galClose').addEventListener('click',closeGal);
+galMod.addEventListener('click',e=>{if(e.target===galMod)closeGal();});
+document.querySelector('.addlbl').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();finput.click();}});
+
+/* ============================================================
+   UPLOAD
+============================================================ */
+finput.addEventListener('change',async()=>{
+  if(!finput.files.length||!curY)return;
+  const files=[...finput.files],m=gMem();
+  if(!m[curY])m[curY]=[];
+  let ok=0;
+  for(const f of files){try{m[curY].push(await f2b64(f));ok++;}catch(e){console.error(e);}}
+  sMem(m);finput.value='';renderGal(curY);updCnt(curY);
+  if(ok)toast(`${ok} foto ditambahkan! 🌸`,'💕');
+});
+
+/* ============================================================
+   DOWNLOAD SINGLE PHOTO
+============================================================ */
+function dlPhoto(src,y,i){
+  const a=document.createElement('a');a.href=src;a.download=`kenangan_${y}_${i+1}.jpg`;a.click();
+  toast('Foto diunduh 📥','📥');
+}
+
+/* ============================================================
+   CAPTION EDIT
+============================================================ */
+let capTarget={y:null,i:null};
+const capModal=document.getElementById('cap-modal'),capIn=document.getElementById('capIn'),capLen=document.getElementById('capLen');
+document.getElementById('capClose').addEventListener('click',()=>capModal.classList.remove('on'));
+capModal.addEventListener('click',e=>{if(e.target===capModal)capModal.classList.remove('on');});
+capIn.addEventListener('input',()=>capLen.textContent=capIn.value.length);
+document.getElementById('capSave').addEventListener('click',()=>{
+  const{y,i}=capTarget;if(y===null)return;
+  const caps=gCaps();caps[`${y}_${i}`]=capIn.value.trim();sCaps(caps);
+  capModal.classList.remove('on');renderGal(y);toast('Caption tersimpan ✏️','✏️');
+});
+function openCapEdit(y,i,cur){
+  capTarget={y,i};capIn.value=cur||'';capLen.textContent=(cur||'').length;
+  capModal.classList.add('on');setTimeout(()=>capIn.focus(),100);
+}
+
+/* ============================================================
+   SLIDESHOW
+============================================================ */
+let ssPhotos=[],ssCaps=[],ssI=0,ssOn=true,ssT=null;
+const ssModal=document.getElementById('ss-modal');
+
+document.getElementById('ssBtnOpen').addEventListener('click',()=>{
+  if(!curY)return;ssPhotos=gYP(curY);
+  if(!ssPhotos.length){toast('Belum ada foto 📷','📷');return;}
+  const caps=gCaps();ssCaps=ssPhotos.map((_,i)=>caps[`${curY}_${i}`]||'');
+  ssI=0;ssOn=true;document.getElementById('ssPlay').textContent='⏸ Pause';
+  showSS();ssModal.classList.add('on');document.body.style.overflow='hidden';
+  startSST();
+});
+function showSS(){
+  document.getElementById('ssImg').src=ssPhotos[ssI];
+  document.getElementById('ssCap').textContent=ssCaps[ssI]?`💬 ${ssCaps[ssI]}`:'';
+  document.getElementById('ssCtr').textContent=`${ssI+1} / ${ssPhotos.length}`;
+  document.getElementById('ssPfill').style.width=`${((ssI+1)/ssPhotos.length)*100}%`;
+}
+function startSST(){clearInterval(ssT);if(ssOn)ssT=setInterval(()=>{ssI=(ssI+1)%ssPhotos.length;showSS();},3400);}
+document.getElementById('ss-prev').addEventListener('click',()=>{ssI=(ssI-1+ssPhotos.length)%ssPhotos.length;showSS();});
+document.getElementById('ss-next').addEventListener('click',()=>{ssI=(ssI+1)%ssPhotos.length;showSS();});
+document.getElementById('ssPlay').addEventListener('click',function(){ssOn=!ssOn;this.textContent=ssOn?'⏸ Pause':'▶ Play';startSST();});
+document.getElementById('ssDlCur').addEventListener('click',()=>{if(ssPhotos[ssI])dlPhoto(ssPhotos[ssI],curY||'xx',ssI);});
+function closeSSModal(){clearInterval(ssT);ssModal.classList.remove('on');document.body.style.overflow=galMod.classList.contains('on')?'hidden':'';}
+document.getElementById('ssClose').addEventListener('click',closeSSModal);
+
+/* ============================================================
+   LIGHTBOX (with prev/next)
+============================================================ */
+let lbPhotos=[],lbCaps=[],lbI=0,lbYear=null;
+const lbx=document.getElementById('lbx'),lbImg=document.getElementById('lbImg'),lbCapEl=document.getElementById('lbCap');
+
+function openLbx(src,cap,y,i){
+  lbYear=y;lbPhotos=gYP(y);const caps=gCaps();lbCaps=lbPhotos.map((_,j)=>caps[`${y}_${j}`]||'');
+  lbI=i;showLb();lbx.classList.add('on');document.body.style.overflow='hidden';
+}
+function showLb(){
+  lbImg.src=lbPhotos[lbI];const cap=lbCaps[lbI];
+  if(cap){lbCapEl.textContent=`💬 ${cap}`;lbCapEl.style.display='block';}else{lbCapEl.style.display='none';}
+}
+function closeLbx(){lbx.classList.remove('on');if(!galMod.classList.contains('on'))document.body.style.overflow='';}
+document.getElementById('lbxClose').addEventListener('click',closeLbx);
+lbx.addEventListener('click',e=>{if(e.target===lbx)closeLbx();});
+document.getElementById('lb-prev').addEventListener('click',()=>{lbI=(lbI-1+lbPhotos.length)%lbPhotos.length;showLb();});
+document.getElementById('lb-next').addEventListener('click',()=>{lbI=(lbI+1)%lbPhotos.length;showLb();});
+
+/* ============================================================
+   DELETE
+============================================================ */
+let cfTarget={y:null,i:null};
+const cfdlg=document.getElementById('cfdlg');
+function openCfDel(y,i){cfTarget={y,i};cfdlg.classList.add('on');setTimeout(()=>document.getElementById('cfYes').focus(),60);}
+function closeCfDel(){cfdlg.classList.remove('on');cfTarget={y:null,i:null};}
+document.getElementById('cfNo').addEventListener('click',closeCfDel);
+document.getElementById('cfYes').addEventListener('click',()=>{
+  const{y,i}=cfTarget;if(y===null)return;
+  const m=gMem(),caps=gCaps();
+  if(m[y]){
+    m[y].splice(i,1);
+    // shift captions
+    const nc={};Object.keys(caps).forEach(k=>{
+      const[ky,ki]=k.split('_');if(ky!==String(y)){nc[k]=caps[k];return;}
+      const n=+ki;if(n<i)nc[k]=caps[k];else if(n>i)nc[`${y}_${n-1}`]=caps[k];
+    });
+    sMem(m);sCaps(nc);renderGal(y);updCnt(y);toast('Foto dihapus 🗑️','🗑️');
+  }
+  closeCfDel();
+});
+
+/* ============================================================
+   BACKUP & RESTORE
+============================================================ */
+const bkpModal=document.getElementById('bkp-modal');
+document.getElementById('tbBackup').addEventListener('click',()=>bkpModal.classList.add('on'));
+document.getElementById('bkpClose').addEventListener('click',()=>bkpModal.classList.remove('on'));
+bkpModal.addEventListener('click',e=>{if(e.target===bkpModal)bkpModal.classList.remove('on');});
+
+document.getElementById('btnExp').addEventListener('click',()=>{
+  const data={memories:gMem(),captions:gCaps(),exportedAt:new Date().toISOString(),version:'1.0'};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+  a.download=`kenangan-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();
+  toast('Backup didownload 💾','💾');
+});
+
+const impFi=document.getElementById('impFi');
+document.getElementById('btnImpTrig').addEventListener('click',()=>impFi.click());
+impFi.addEventListener('change',()=>{
+  if(!impFi.files.length)return;
+  const r=new FileReader();r.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result),m=gMem(),caps=gCaps();
+      if(d.memories){Object.keys(d.memories).forEach(y=>{if(!m[y])m[y]=[];d.memories[y].forEach(s=>{if(!m[y].includes(s))m[y].push(s);});});sMem(m);}
+      if(d.captions){sCaps({...caps,...d.captions});}
+      impFi.value='';renderMain();toast('Import berhasil 📥','📥');
+    }catch{toast('File tidak valid ❌','❌');}
+  };r.readAsText(impFi.files[0]);
+});
+
+/* ============================================================
+   LOVE LETTER MODAL
+============================================================ */
+const loveModal=document.getElementById('love-modal');
+document.getElementById('tbLove').addEventListener('click',()=>loveModal.classList.add('on'));
+document.getElementById('loveClose').addEventListener('click',()=>loveModal.classList.remove('on'));
+loveModal.addEventListener('click',e=>{if(e.target===loveModal)loveModal.classList.remove('on');});
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+============================================================ */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(ssModal.classList.contains('on'))closeSSModal();
+    else if(lbx.classList.contains('on'))closeLbx();
+    else if(cfdlg.classList.contains('on'))closeCfDel();
+    else if(document.getElementById('cap-modal').classList.contains('on'))document.getElementById('cap-modal').classList.remove('on');
+    else if(bkpModal.classList.contains('on'))bkpModal.classList.remove('on');
+    else if(loveModal.classList.contains('on'))loveModal.classList.remove('on');
+    else if(galMod.classList.contains('on'))closeGal();
+  }
+  if(ssModal.classList.contains('on')){
+    if(e.key==='ArrowRight'){ssI=(ssI+1)%ssPhotos.length;showSS();}
+    if(e.key==='ArrowLeft'){ssI=(ssI-1+ssPhotos.length)%ssPhotos.length;showSS();}
+    if(e.key===' '){e.preventDefault();document.getElementById('ssPlay').click();}
+  }
+  if(lbx.classList.contains('on')){
+    if(e.key==='ArrowRight'){lbI=(lbI+1)%lbPhotos.length;showLb();}
+    if(e.key==='ArrowLeft'){lbI=(lbI-1+lbPhotos.length)%lbPhotos.length;showLb();}
+  }
+});
+
+/* ============================================================
+   SWIPE SUPPORT (touch devices)
+============================================================ */
+(function(){
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)<50)return;
+    if(ssModal.classList.contains('on')){dx<0?(ssI=(ssI+1)%ssPhotos.length):(ssI=(ssI-1+ssPhotos.length)%ssPhotos.length);showSS();}
+    if(lbx.classList.contains('on')){dx<0?(lbI=(lbI+1)%lbPhotos.length):(lbI=(lbI-1+lbPhotos.length)%lbPhotos.length);showLb();}
+  },{passive:true});
+})();
+
+/* ============================================================
+   INIT
+============================================================ */
+if(isIn())goMain();else goLogin();
+</script>
+
+<!-- ======================================================
+     AI CHAT FAB + WINDOW
+====================================================== -->
+
+<!-- FAB button -->
+<button id="ai-fab" aria-label="Buka AI Chat">
+  🤖
+  <div class="ai-notif" id="ai-notif"></div>
+</button>
+
+<!-- Chat Window -->
+<div id="ai-window" role="dialog" aria-label="AI Chat Kenangan" aria-modal="false">
+
+  <!-- Header -->
+  <div class="ai-hdr">
+    <div class="ai-hdr-avatar">🌸</div>
+    <div class="ai-hdr-info">
+      <div class="ai-hdr-name">Asisten Kenangan AI</div>
+      <div class="ai-hdr-status">
+        <span class="ai-status-dot"></span>
+        <span id="ai-status-txt">Siap membantu</span>
+      </div>
+    </div>
+    <button class="ai-hdr-cfg" id="ai-cfg-btn" aria-label="Pengaturan API">⚙️</button>
+    <button class="ai-hdr-close" id="ai-close" aria-label="Tutup chat">✕</button>
+  </div>
+
+  <!-- API Key Settings Panel -->
+  <div class="ai-cfg-panel" id="ai-cfg-panel">
+    <div class="ai-cfg-row">
+      <input type="password" class="ai-cfg-input" id="ai-key-input"
+        placeholder="Masukkan Google Gemini API Key…"/>
+      <button class="ai-cfg-save" id="ai-key-save">Simpan</button>
+    </div>
+    <p class="ai-cfg-note">
+      API Key gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>.
+      Tanpa key, AI tetap bisa dipakai dalam mode offline 🌸
+    </p>
+  </div>
+
+  <!-- Mode tag -->
+  <div class="ai-mode-tag"><span id="ai-mode-lbl">Mode: Offline AI 🌸</span></div>
+
+  <!-- Messages -->
+  <div class="ai-msgs" id="ai-msgs"></div>
+
+  <!-- Quick reply chips -->
+  <div class="ai-chips" id="ai-chips"></div>
+
+  <!-- Input bar -->
+  <div class="ai-input-bar">
+    <textarea class="ai-textarea" id="ai-input"
+      placeholder="Tanya apa saja tentang kenangan…"
+      rows="1" maxlength="500" aria-label="Tulis pesan"></textarea>
+    <button class="ai-send" id="ai-send" aria-label="Kirim pesan">➤</button>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   AI CHAT ENGINE
+   - Kalau ada Gemini API key → pakai Gemini 1.5 Flash (gratis)
+   - Fallback → rule-based offline AI dengan konteks kenangan
+============================================================ */
+(function(){
+
+const AI_KEY_SK = 'memoir_ai_key';
+const AI_HIST_SK= 'memoir_ai_hist';
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=';
+
+/* ---- System context yang dikirim ke Gemini ---- */
+const SYS_CTX = `Kamu adalah "Asisten Kenangan AI", sebuah AI yang ada di dalam aplikasi web penyimpan kenangan pribadi milik pasangan.
+Nama di aplikasi: "Kenangan Kita 🌸".
+Nama pengguna spesial di aplikasi: Reisa Dea Ananda.
+Tanggal anniversary: 21 Juli 2023.
+
+Kamu bertugas:
+1. Membantu pengguna mengingat & merefleksi kenangan mereka
+2. Membuat puisi/sajak romantis tentang kenangan/cinta
+3. Menjawab pertanyaan umum
+4. Memberikan ide caption foto yang romantis
+5. Memberikan kata-kata manis untuk Reisa
+6. Menjawab pertanyaan tentang fitur aplikasi (upload foto, gallery, slideshow, backup, dll)
+
+Gaya bicara: hangat, romantis, emosional tapi tetap ringan. Gunakan emoji secara wajar. Jawab dalam Bahasa Indonesia.
+Jangan pernah keluar dari karakter ini.`;
+
+/* ---- Elemen DOM ---- */
+const fab       = document.getElementById('ai-fab');
+const win       = document.getElementById('ai-window');
+const closeBtn  = document.getElementById('ai-close');
+const cfgBtn    = document.getElementById('ai-cfg-btn');
+const cfgPanel  = document.getElementById('ai-cfg-panel');
+const keyInput  = document.getElementById('ai-key-input');
+const keySave   = document.getElementById('ai-key-save');
+const msgsEl    = document.getElementById('ai-msgs');
+const inputEl   = document.getElementById('ai-input');
+const sendBtn   = document.getElementById('ai-send');
+const chipsEl   = document.getElementById('ai-chips');
+const modeLbl   = document.getElementById('ai-mode-lbl');
+const statusTxt = document.getElementById('ai-status-txt');
+const notif     = document.getElementById('ai-notif');
+
+/* ---- State ---- */
+let apiKey      = localStorage.getItem(AI_KEY_SK)||'';
+let chatHistory = [];   // {role, parts:[{text}]} untuk Gemini
+let isTyping    = false;
+let opened      = false;
+
+/* ---- Quick chips defs ---- */
+const CHIPS = [
+  '✍️ Buatkan puisi',
+  '💡 Ide caption foto',
+  '💕 Kata manis untuk Reisa',
+  '📸 Cara upload foto?',
+  '📊 Berapa total fotoku?',
+  '🎉 Ucapan anniversary',
+];
+
+/* ---- Offline AI responses ---- */
+const OFFLINE = {
+  puisi:[
+    `🌸 **Untukmu, Reisa**\n\nDalam setiap klik kamera\nAda sepotong waktu yang kita simpan\nBukan sekadar gambar biasa\nTapi kenangan yang akan selalu ada\n\nKamu, Reisa Dea Ananda\nAdalah bab terindah dalam hidupku\nDan setiap foto ini\nAdalah bukti betapa berartinya kamu 💕`,
+    `🌷 **Kenangan**\n\nWaktu boleh berlari\nAngin boleh pergi\nTapi kenangan bersamamu\nAkan selalu tinggal di sini\n\nDi balik layar ini\nKita simpan setiap tawa\nSetiap peluk dan cerita\nMenjadi abadi selamanya 💖`,
+    `💌 **Untuk Reisa**\n\nJika kenangan adalah bunga\nMaka kamu adalah taman\nYang selalu mekar setiap pagi\nDan harum di setiap malam\n\nTerima kasih telah ada 🌸`,
+  ],
+  caption:[
+    `✨ Beberapa ide caption romantis:\n\n📌 "Bersama kamu, setiap momen jadi luar biasa 💕"\n📌 "Kenangan terbaik adalah yang kita buat bersama 🌸"\n📌 "Di sampingmu, waktu terasa selalu sempurna ✨"\n📌 "Satu foto, sejuta kenangan yang tak terlupakan 💖"\n📌 "Bukan soal di mana, tapi bersama siapa 🌷"`,
+    `💡 Caption untuk foto spesial:\n\n📌 "Ini bukan sekadar foto, ini sepotong kebahagiaan 🌸"\n📌 "Senyummu adalah alasan terbaik di hariku 💕"\n📌 "Momen kecil yang terasa sangat besar ✨"\n📌 "Terima kasih sudah menjadi bagian dari ceritaku 💌"`,
+  ],
+  sayang:[
+    `💕 Kata-kata manis untuk Reisa:\n\n*"Reisa, kamu tahu tidak? Setiap hari yang kujalani bersamamu terasa seperti hadiah yang tidak pernah aku harap sebelumnya. Senyummu adalah matahari yang menerangi hariku, dan tawamu adalah melodi terindah yang pernah kudengar. Terima kasih, Reisa."* 🌸`,
+    `🌹 Untuk Reisa Dea Ananda:\n\n*"Ada hal-hal sederhana yang membuatku jatuh cinta padamu setiap hari. Cara kamu tertawa, cara kamu peduli, cara kamu ada. Kamu bukan hanya seseorang yang spesial bagimu — kamu adalah sesuatu yang tidak pernah kubayangkan sebelumnya, dan aku bersyukur kamu ada."* 💖`,
+  ],
+  upload:[
+    `📸 **Cara upload foto:**\n\n1. Klik salah satu kartu tahun (2023-2026)\n2. Klik tombol **"🌸 Tambah Foto"** di dalam gallery\n3. Pilih satu atau beberapa foto sekaligus\n4. Foto otomatis tersimpan di perangkat kamu!\n\n💡 *Tips: Kamu bisa pilih banyak foto sekaligus!*`,
+  ],
+  anniversary:[
+    `🎉 **Ucapan Anniversary:**\n\n*"Hari ini menandai perjalanan kita yang indah. Setiap detik bersamamu adalah anugerah yang tidak ternilai. Terima kasih, Reisa Dea Ananda, telah menjadi bagian dari hidup yang paling berarti. Semoga kita terus menulis kenangan indah bersama sampai selamanya."* 💕🌸`,
+  ],
+  fitur:[
+    `🌸 **Fitur-fitur aplikasi:**\n\n📸 **Gallery** — Simpan foto per tahun (2023-2026)\n▶ **Slideshow** — Putar foto otomatis\n✏️ **Caption** — Tambah teks ke setiap foto\n⬇ **Download** — Unduh foto\n💾 **Backup** — Export/import data\n🌙 **Dark Mode** — Mode gelap\n🎵 **Musik** — Musik ambient\n💌 **Surat Cinta** — Surat untuk Reisa\n⏱ **Countdown** — Timer kebersamaan\n🤖 **AI ini!** — Teman ngobrol kamu 💕`,
+  ],
+  total:[
+    ()=>{
+      const m=JSON.parse(localStorage.getItem('memoir_memories')||'{}');
+      let tot=0;Object.values(m).forEach(a=>{tot+=a.length});
+      return `📊 **Statistik Kenangan:**\n\nTotal foto tersimpan: **${tot} foto** 📷\nTahun aktif: ${Object.keys(m).filter(k=>m[k].length).length} tahun\n\n${tot===0?'Belum ada foto nih! Yuk mulai upload kenangan pertamamu 🌸':tot<10?'Sudah ada '+tot+' kenangan! Terus tambahkan ya 💕':'Wow '+tot+' kenangan tersimpan! Koleksi yang luar biasa 🌟'}`;
+    }
+  ],
+  default:[
+    `Haloww! Aku adalah Asisten Kenangan AI kamu 🌸 Aku bisa membantu kamu:\n\n- Membuat **puisi** romantis 📝\n- Memberikan **ide caption** foto 💡\n- Menulis **kata-kata manis** untuk Reisa 💕\n- Menjelaskan **cara pakai** fitur aplikasi 📱\n- Menjawab pertanyaan **umum** ✨\n\nMau apa dulu? 😊`,
+    `Haiii! Aku senang bisa menemanimu di sini 💕 Ada yang bisa aku bantu tentang kenangan atau foto-foto kamu?`,
+    `Tentuuu! Aku di sini untuk menemanimu 🌸 Apa yang ingin kamu tanyakan atau minta?`,
+  ],
+};
+
+/* ---- Init ---- */
+function init(){
+  updateModeLabel();
+  // restore history (max 20 pesan)
+  try{chatHistory=JSON.parse(sessionStorage.getItem(AI_HIST_SK))||[];}catch{chatHistory=[];}
+  renderChips(CHIPS);
+  autoResize();
+  // jika sudah login saat page load (session masih aktif)
+  if(document.getElementById('pg-main').style.display==='block'){
+    fab.style.display='flex';
+    if(!sessionStorage.getItem('ai_welcomed')){
+      sessionStorage.setItem('ai_welcomed','1');
+      scheduleWelcome();
+    }
+  }
+}
+
+function scheduleWelcome(){
+  // muncul notif setelah 3 detik login
+  setTimeout(()=>{
+    notif.style.display='block';
+    addMsg('ai','Halloww! 👋 Akuu Asisten Kenangan AI kamu 🌸\n\nAkkk bisa buatkan kamuuu puisi, ide caption foto, kata-kata manis untuk Reisa, atau sekadar menemanimu mengingat kenangan indah. Mau tanya appaa cintaa? 💕');
+  },3000);
+}
+
+/* ---- Toggle window ---- */
+fab.addEventListener('click',()=>{
+  opened=!opened;
+  win.classList.toggle('on',opened);
+  notif.style.display='none';
+  if(opened)setTimeout(()=>inputEl.focus(),300);
+});
+closeBtn.addEventListener('click',()=>{opened=false;win.classList.remove('on');});
+
+/* ---- Settings panel ---- */
+cfgBtn.addEventListener('click',()=>{cfgPanel.classList.toggle('show');if(cfgPanel.classList.contains('show'))keyInput.focus();});
+keyInput.value=apiKey;
+keySave.addEventListener('click',()=>{
+  const k=keyInput.value.trim();
+  if(k){apiKey=k;localStorage.setItem(AI_KEY_SK,k);updateModeLabel();toast('API Key tersimpan! 🔑 Gemini AI aktif','✨');cfgPanel.classList.remove('show');}
+  else{apiKey='';localStorage.removeItem(AI_KEY_SK);updateModeLabel();toast('API Key dihapus, mode offline','🌸');cfgPanel.classList.remove('show');}
+});
+
+function updateModeLabel(){
+  if(apiKey){modeLbl.textContent='Mode: Gemini AI ✨ (Online)';statusTxt.textContent='Gemini AI aktif';}
+  else{modeLbl.textContent='Mode: Offline AI 🌸';statusTxt.textContent='Siap membantu';}
+}
+
+/* ---- Render chips ---- */
+function renderChips(chips){
+  chipsEl.innerHTML='';
+  chips.forEach(c=>{
+    const b=document.createElement('button');b.className='ai-chip';b.textContent=c;
+    b.addEventListener('click',()=>{inputEl.value=c.replace(/^[^\s]+\s/,'');sendMessage();});
+    chipsEl.appendChild(b);
+  });
+}
+
+/* ---- Auto resize textarea ---- */
+function autoResize(){
+  inputEl.addEventListener('input',()=>{inputEl.style.height='auto';inputEl.style.height=Math.min(inputEl.scrollHeight,80)+'px';});
+}
+
+/* ---- Render message ---- */
+function addMsg(role,text){
+  const isAI=(role==='ai');
+  const time=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  const div=document.createElement('div');
+  div.className='ai-bubble'+(isAI?'':' user');
+  // parse bold markdown
+  const html=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  div.innerHTML=`
+    <div class="ai-bubble-avatar">${isAI?'🌸':'👤'}</div>
+    <div>
+      <div class="ai-msg-text">${html}</div>
+      <div class="ai-msg-time">${time}</div>
+    </div>`;
+  msgsEl.appendChild(div);
+  scrollToBottom();
+  // save to session
+  chatHistory.push({role:isAI?'model':'user',parts:[{text}]});
+  if(chatHistory.length>40)chatHistory=chatHistory.slice(-40);
+  sessionStorage.setItem(AI_HIST_SK,JSON.stringify(chatHistory));
+}
+
+function showTyping(){
+  const div=document.createElement('div');div.className='ai-bubble ai-typing';div.id='ai-typing';
+  div.innerHTML=`<div class="ai-bubble-avatar">🌸</div><div class="ai-msg-text"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>`;
+  msgsEl.appendChild(div);scrollToBottom();
+}
+function hideTyping(){const t=document.getElementById('ai-typing');if(t)t.remove();}
+function scrollToBottom(){msgsEl.scrollTop=msgsEl.scrollHeight;}
+
+/* ---- Send ---- */
+sendBtn.addEventListener('click',sendMessage);
+inputEl.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
+
+async function sendMessage(){
+  const text=inputEl.value.trim();
+  if(!text||isTyping)return;
+  inputEl.value='';inputEl.style.height='auto';
+  addMsg('user',text);
+  isTyping=true;sendBtn.disabled=true;
+  showTyping();
+  chipsEl.innerHTML=''; // hide chips saat typing
+
+  try{
+    let reply;
+    if(apiKey){
+      reply=await callGemini(text);
+    }else{
+      reply=await offlineReply(text);
+    }
+    hideTyping();addMsg('ai',reply);
+  }catch(e){
+    hideTyping();addMsg('ai','Maafff, ada kendala teknis 😅 Tapi aku tetap di sini buatt kamuu! Coba lagi yaaw💕');
+    console.error('AI error:',e);
+  }
+
+  isTyping=false;sendBtn.disabled=false;
+  renderChips(CHIPS);
+  setTimeout(()=>inputEl.focus(),100);
+}
+
+/* ---- Gemini API call ---- */
+async function callGemini(userText){
+  // Build messages: system as first user turn (Gemini doesn't have system role in v1beta)
+  const contents=[];
+  // Prepend system as a user/model exchange if history empty
+  if(chatHistory.filter(h=>h.role==='user').length<=1){
+    contents.push({role:'user',parts:[{text:SYS_CTX+'\n\nKonfirmasi kamu mengerti.'}]});
+    contents.push({role:'model',parts:[{text:'Akkk ngerti! Akk adalah Asisten Kenangan AI yang siapp menemaniii kamuuu 🌸'}]});
+  }
+  // Add existing history
+  chatHistory.filter(h=>h.role==='user'||h.role==='model').forEach(h=>contents.push(h));
+  // Add new message
+  contents.push({role:'user',parts:[{text:userText}]});
+
+  const res=await fetch(GEMINI_URL+apiKey,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents,
+      generationConfig:{temperature:.85,topK:40,topP:.95,maxOutputTokens:512},
+      safetySettings:[
+        {category:'HARM_CATEGORY_HARASSMENT',threshold:'BLOCK_NONE'},
+        {category:'HARM_CATEGORY_HATE_SPEECH',threshold:'BLOCK_NONE'},
+      ]
+    })
+  });
+
+  if(!res.ok){
+    const err=await res.json();
+    if(res.status===400||res.status===403){
+      // invalid key fallback
+      toast('API Key tidak valid, beralih ke mode offline','⚠️');
+      apiKey='';localStorage.removeItem(AI_KEY_SK);updateModeLabel();
+      return offlineReply(userText);
+    }
+    throw new Error(err.error?.message||'Gemini error '+res.status);
+  }
+
+  const data=await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text||'hmmmm mmaaf, akk belumm bisa jawab ituuw..';
+}
+
+/* ---- Offline rule-based AI ---- */
+async function offlineReply(text){
+  // simulate thinking delay
+  await new Promise(r=>setTimeout(r,700+Math.random()*600));
+
+  const t=text.toLowerCase();
+
+  if(/puisi|sajak|poem|romantis|bait/.test(t))
+    return pick(OFFLINE.puisi);
+
+  if(/caption|teks foto|tulisan foto|kata untuk foto|keterangan foto/.test(t))
+    return pick(OFFLINE.caption);
+
+  if(/kata.*(manis|cinta|sayang|romantis).*reisa|reisa.*(kata|ucap|bilang)|sayang.*reisa|untuk reisa/.test(t))
+    return pick(OFFLINE.sayang);
+
+  if(/upload|tambah foto|cara.*foto|simpan foto/.test(t))
+    return pick(OFFLINE.upload);
+
+  if(/anniversary|ulang tahun.*hubungan|hari jadi/.test(t))
+    return pick(OFFLINE.anniversary);
+
+  if(/fitur|bisa apa|fungsi|cara pakai|menu|tombol/.test(t))
+    return pick(OFFLINE.fitur);
+
+  if(/total|berapa.*foto|jumlah foto|statistik|banyak foto/.test(t)){
+    const fn=OFFLINE.total[0];return fn();
+  }
+
+  if(/halo|hai|hello|hi\b|apa kabar/.test(t))
+    return pick([
+      'Haiiii imupp! Senang bertemu denganmu, reisuyy Ada yang bisa akkk bantu?',
+      'Hallowwww manissz! Aku siap menemanii kamuuu, Maww ngobrol tentang kenangan ataww butuhh bantuann?',
+      'Haiii haiiiiii! Aku di sini untuk kamuuu esuyy',
+    ]);
+
+  if(/siapa kamu|kamu apa|apa itu kamu/.test(t))
+    return `Akkkw adalah **Asisten Kenangan AL** 🌸 Sebuah AI yang tinggal di dalam aplikasi kenangan kamuuww!\n\nAku bisa:\n- Buat **puisi** untuk Reisa tercintahh 📝\n- Kasih **ide caption** foto 💡  \n- Tulis **kata-kata manis** 💕\n- Jelaskan **fitur aplikasi** 📱\n- Dan sekadar **menemanimu** ngobrol ✨`;
+
+  if(/terima kasih|makasih|thanks/.test(t))
+    return pick([
+      'Sama-samaaa sayangg! Senang bisa membantu kamuu apakahh ada yang lain?',
+      'ofkorsss! Akks selalu di sini untuk kamuu cintaa 💕',
+      'Dengan senang hatiii suyy! 🌸 Ada lagi yang bisa akk bantuu??',
+    ]);
+
+  // jawaban default
+  return pick(OFFLINE.default);
+}
+
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+/* ---- Show fab after login ---- */
+// Hook into goMain — observe toolbar visibility
+const obs=new MutationObserver(()=>{
+  const tb=document.getElementById('toolbar');
+  const tbVisible = tb && (tb.style.display==='flex' || tb.style.display==='');
+  // cek dari pg-main visibility sebagai sumber kebenaran
+  const mainVisible = document.getElementById('pg-main') && document.getElementById('pg-main').style.display==='block';
+  if(mainVisible){fab.style.display='flex';}
+  else{fab.style.display='none';opened=false;win.classList.remove('on');}
+});
+obs.observe(document.getElementById('toolbar'),{attributes:true,attributeFilter:['style']});
+// Juga observe pg-main
+const obs2=new MutationObserver((mutations)=>{
+  const mainVisible = document.getElementById('pg-main') && document.getElementById('pg-main').style.display==='block';
+  if(mainVisible){
+    fab.style.display='flex';
+    // trigger welcome hanya sekali per sesi
+    if(!sessionStorage.getItem('ai_welcomed')){
+      sessionStorage.setItem('ai_welcomed','1');
+      scheduleWelcome();
+    }
+  }else{fab.style.display='none';opened=false;win.classList.remove('on');}
+});
+obs2.observe(document.getElementById('pg-main'),{attributes:true,attributeFilter:['style']});
+
+/* ---- Escape key close ---- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&opened){opened=false;win.classList.remove('on');}
+});
+
+init();
+
+})(); // end AI IIFE
+</script>
+
+<!-- ======================================================
+     POHON CINTA — CSS
+====================================================== -->
+<style>
+/* ---- Modal wrapper ---- */
+#tree-modal .mover{ z-index:1100 }
+#tree-modal .mbox{
+  max-width:520px;
+  background:var(--cb);
+  overflow-y:auto;
+  padding:28px 24px 32px;
+}
+
+/* ---- Judul ---- */
+.tree-header{ text-align:center; margin-bottom:6px }
+.tree-header h2{
+  font-size:22px;font-weight:900;
+  background:var(--gm);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.tree-header p{ font-size:12px;font-weight:600;color:var(--ts);margin-top:4px }
+
+/* ---- Container pohon ---- */
+.love-tree{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  padding:10px 0 0;
+  /* Garis batang pohon di tengah */
+}
+
+/* Batang vertikal utama */
+.love-tree::before{
+  content:'';
+  position:absolute;
+  top:0; bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  background:linear-gradient(to top,#8B4513,#a0522d,#cd853f,#deb887,#f5deb3);
+  border-radius:3px;
+  z-index:0;
+}
+
+/* ---- Setiap node tahun ---- */
+.tree-node{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  width:100%;
+  margin:0;
+}
+
+/* Node ganjil: info di kiri, bunga di kanan */
+.tree-node:nth-child(odd){ flex-direction:row }
+/* Node genap: info di kanan, bunga di kiri */
+.tree-node:nth-child(even){ flex-direction:row-reverse }
+
+/* Konten kartu kiri/kanan */
+.tree-card{
+  flex:1;
+  background:rgba(255,255,255,.88);
+  border:2px solid rgba(255,184,217,.5);
+  border-radius:var(--rl);
+  padding:14px 16px;
+  max-width:180px;
+  box-shadow:var(--ss);
+  transition:transform .25s,box-shadow .25s;
+  animation:slideUp .4s ease both;
+}
+[data-theme=dark] .tree-card{
+  background:rgba(45,12,30,.88);
+  border-color:rgba(255,100,160,.3);
+}
+.tree-card:hover{ transform:translateY(-4px) scale(1.02);box-shadow:var(--sm) }
+
+.tree-node:nth-child(odd)  .tree-card{ margin-right:18px;text-align:right }
+.tree-node:nth-child(even) .tree-card{ margin-left:18px;text-align:left }
+
+.tc-year{
+  font-size:22px;font-weight:900;
+  background:var(--gm);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:4px;
+}
+.tc-label{
+  font-size:11px;font-weight:800;color:var(--tm);
+  text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;
+}
+.tc-desc{
+  font-size:12px;font-weight:600;color:var(--td);
+  line-height:1.6;
+}
+[data-theme=dark] .tc-desc{ color:var(--td) }
+.tc-count{
+  display:inline-block;
+  background:var(--gm);color:#fff;
+  padding:3px 10px;border-radius:12px;
+  font-size:10px;font-weight:800;
+  margin-top:8px;
+}
+.tc-milestone{
+  display:inline-block;
+  font-size:11px;font-weight:700;color:var(--deep);
+  margin-top:5px;
+  background:rgba(255,77,166,.1);
+  padding:3px 9px;border-radius:10px;
+  border:1px solid rgba(255,77,166,.25);
+}
+
+/* Titik di tengah (lingkaran pada batang) */
+.tree-dot{
+  width:22px;height:22px;flex-shrink:0;
+  border-radius:50%;
+  background:var(--gm);
+  border:3px solid #fff;
+  box-shadow:0 0 0 2px var(--accent),0 3px 8px rgba(255,77,166,.4);
+  z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;
+}
+[data-theme=dark] .tree-dot{ border-color:#2d0f1e }
+
+/* Ruang kosong di sisi berlawanan kartu */
+.tree-space{ flex:1 }
+
+/* ---- Node "?" masa depan ---- */
+.tree-node.future .tree-card{
+  background:rgba(255,240,247,.55);
+  border-style:dashed;
+  border-color:rgba(255,158,203,.5);
+}
+.tc-year.future-year{
+  font-size:28px;
+  -webkit-text-fill-color:transparent;
+  background:linear-gradient(135deg,#ffb8d9,#ff9ecb);
+  -webkit-background-clip:text;background-clip:text;
+}
+.tc-desc.future-desc{
+  color:var(--ts);font-style:italic;
+}
+
+/* ---- Mahkota pohon (kanopi) ---- */
+.tree-crown{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  margin-bottom:0;
+}
+.crown-leaves{
+  font-size:50px;line-height:1;
+  filter:drop-shadow(0 4px 8px rgba(34,139,34,.3));
+  animation:bob 3s ease-in-out infinite;
+}
+.crown-sub{
+  font-size:11px;font-weight:700;color:var(--ts);
+  margin-top:4px;text-align:center;
+}
+
+/* ---- Akar bawah ---- */
+.tree-roots{
+  position:relative;z-index:1;
+  text-align:center;
+  margin-top:4px;
+}
+.roots-emoji{ font-size:32px;filter:drop-shadow(0 2px 4px rgba(139,69,19,.4)) }
+.roots-label{
+  font-size:11px;font-weight:700;color:var(--ts);
+  margin-top:2px;
+}
+
+/* ---- Spacer antara nodes ---- */
+.tree-gap{ height:24px;position:relative;z-index:0 }
+
+/* animasi staggered */
+.tree-node:nth-child(1) .tree-card{ animation-delay:.05s }
+.tree-node:nth-child(2) .tree-card{ animation-delay:.15s }
+.tree-node:nth-child(3) .tree-card{ animation-delay:.25s }
+.tree-node:nth-child(4) .tree-card{ animation-delay:.35s }
+.tree-node:nth-child(5) .tree-card{ animation-delay:.45s }
+.tree-node:nth-child(6) .tree-card{ animation-delay:.55s }
+</style>
+
+<!-- ======================================================
+     POHON CINTA — HTML MODAL
+====================================================== -->
+<div class="mover" id="tree-modal" role="dialog" aria-modal="true" aria-labelledby="tree-title">
+  <div class="mbox">
+    <button class="mbtnx" id="treeClose">×</button>
+
+    <div class="tree-header">
+      <h2 id="tree-title">🌳 Pohon Cinta Kita</h2>
+      <p>Dari akar yang kecil, tumbuh cinta yang besar 🌸</p>
+    </div>
+
+    <div class="love-tree" id="love-tree">
+      <!-- Di-render oleh JS -->
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   POHON CINTA
+============================================================ */
+(function(){
+
+const TREE_DATA = [
+  {
+    year: 2023,
+    emoji: '🌱',
+    label: 'Akar kasih sayang',
+    desc: 'Di sini semua dimulai. Pertemuan kecil yang mengubah segalanya — 21 Juli 2023.',
+    milestone: '🌸 Awal mula',
+    dotEmoji: '🌱',
+  },
+  {
+    year: 2024,
+    emoji: '🌿',
+    label: 'Indah layaknya daun yang tumbuh',
+    desc: 'Semakin banyak kenangan, dan mungkin bisa saja akar masalah.',
+    milestone: '💕 1 tahun+',
+    dotEmoji: '🌿',
+  },
+  {
+    year: 2025,
+    emoji: '🍂',
+    label: 'Dedaunan yang runtuh',
+    desc: 'Gugur layaknya musim kemarau.',
+    milestone: '🍁 2 tahun+',
+    dotEmoji: '🍂',
+  },
+  {
+    year: 2026,
+    emoji: '🍃',
+    label: 'Benih baru?',
+    desc: 'Ntah apa yang akan terjadi jika benih ini kita jaga?.',
+    milestone: '✨ 3 tahun+',
+    dotEmoji: '🍃',
+  },
+];
+
+// Node masa depan (tanda tanya)
+const FUTURE_NODES = [
+  { label: '?', dotEmoji: '🌟' },
+  { label: '?', dotEmoji: '💫' },
+  { label: '?', dotEmoji: '⭐' },
+];
+
+function buildTree(){
+  const container = document.getElementById('love-tree');
+  container.innerHTML = '';
+  const mem = JSON.parse(localStorage.getItem('memoir_memories')||'{}');
+
+  // ---- Mahkota di atas ----
+  const crown = document.createElement('div');
+  crown.className = 'tree-crown';
+  crown.innerHTML = `
+    <div class="crown-leaves">🌳</div>
+    <div class="crown-sub">Pohon cinta</div>`;
+  container.appendChild(crown);
+
+  const gap0 = document.createElement('div'); gap0.className='tree-gap'; container.appendChild(gap0);
+
+  // ---- Node masa depan (paling atas, terbalik — tanda tanya dulu) ----
+  [...FUTURE_NODES].reverse().forEach((f, i) => {
+    const node = document.createElement('div');
+    node.className = 'tree-node future';
+
+    const card = document.createElement('div');
+    card.className = 'tree-card';
+    card.innerHTML = `
+      <div class="tc-year future-year">?</div>
+      <div class="tc-label" style="color:var(--ts)">${f.label}</div>
+      <div class="tc-desc future-desc">Masih menjadi misteri indah yang menunggu untuk ditulis bersama... 🌙</div>`;
+
+    const dot = document.createElement('div');
+    dot.className = 'tree-dot';
+    dot.textContent = f.dotEmoji;
+    dot.style.background = 'linear-gradient(135deg,#ffb8d9,#ff9ecb)';
+
+    const space = document.createElement('div');
+    space.className = 'tree-space';
+
+    node.appendChild(card);
+    node.appendChild(dot);
+    node.appendChild(space);
+    container.appendChild(node);
+
+    const gap = document.createElement('div'); gap.className='tree-gap'; container.appendChild(gap);
+  });
+
+  // ---- Node tahun nyata (dari atas ke bawah = 2026 → 2023) ----
+  [...TREE_DATA].reverse().forEach((d, i) => {
+    const count = (mem[d.year]||[]).length;
+    const node = document.createElement('div');
+    node.className = 'tree-node';
+
+    const card = document.createElement('div');
+    card.className = 'tree-card';
+    card.innerHTML = `
+      <div class="tc-year">${d.year}</div>
+      <div class="tc-label">${d.emoji} ${d.label}</div>
+      <div class="tc-desc">${d.desc}</div>
+      <span class="tc-count">📷 ${count} kenangan</span>
+      <br>
+      <span class="tc-milestone">${d.milestone}</span>`;
+
+    const dot = document.createElement('div');
+    dot.className = 'tree-dot';
+    dot.textContent = d.dotEmoji;
+
+    const space = document.createElement('div');
+    space.className = 'tree-space';
+
+    node.appendChild(card);
+    node.appendChild(dot);
+    node.appendChild(space);
+    container.appendChild(node);
+
+    const gap = document.createElement('div'); gap.className='tree-gap'; container.appendChild(gap);
+  });
+
+  // ---- Akar paling bawah ----
+  const roots = document.createElement('div');
+  roots.className = 'tree-roots';
+  roots.innerHTML = `
+    <div class="roots-emoji">🌿🪨🌿</div>
+    <div class="roots-label">21 Juli 2023 </div>`;
+  container.appendChild(roots);
+}
+
+// Buka modal
+const modal = document.getElementById('tree-modal');
+document.getElementById('tbTree').addEventListener('click', () => {
+  buildTree();
+  modal.classList.add('on');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('treeClose').addEventListener('click', () => {
+  modal.classList.remove('on');
+  document.body.style.overflow = '';
+});
+modal.addEventListener('click', e => {
+  if(e.target === modal){ modal.classList.remove('on'); document.body.style.overflow=''; }
+});
+
+// Tutup dengan Escape (tambahkan ke handler keyboard yang sudah ada)
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && modal.classList.contains('on')){
+    modal.classList.remove('on');
+    document.body.style.overflow = '';
+  }
+});
+
+})();
+</script>
+</body>
+</html>
